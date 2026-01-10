@@ -17,16 +17,17 @@ from app.models.schemas import (
 from app.services.auth import get_current_user
 from app.services.supabase_client import get_supabase_client
 from app.services.gemini import gemini_service
+from app.services.persona_utils import build_persona_instructions
 
 router = APIRouter(prefix="/notebooks/{notebook_id}", tags=["study"])
 
 
 async def verify_notebook_access(notebook_id: UUID, user_id: str):
-    """Verify user has access to the notebook."""
+    """Verify user has access to the notebook and return notebook data with settings."""
     supabase = get_supabase_client()
     result = (
         supabase.table("notebooks")
-        .select("id")
+        .select("id, settings")
         .eq("id", str(notebook_id))
         .eq("user_id", user_id)
         .single()
@@ -83,7 +84,11 @@ async def generate_flashcards(
     user: dict = Depends(get_current_user),
 ):
     """Generate flashcards from notebook sources."""
-    await verify_notebook_access(notebook_id, user["id"])
+    notebook = await verify_notebook_access(notebook_id, user["id"])
+
+    # Get persona instructions from notebook settings
+    settings = notebook.get("settings") or {}
+    persona_instructions = build_persona_instructions(settings)
 
     content, sources = await get_sources_content(notebook_id, request.source_ids)
 
@@ -94,6 +99,7 @@ async def generate_flashcards(
         content=content[:50000],
         count=request.count,
         model_name=request.model,
+        persona_instructions=persona_instructions,
     )
 
     flashcards = parse_json_response(result["content"])
@@ -111,7 +117,11 @@ async def generate_quiz(
     user: dict = Depends(get_current_user),
 ):
     """Generate a quiz from notebook sources."""
-    await verify_notebook_access(notebook_id, user["id"])
+    notebook = await verify_notebook_access(notebook_id, user["id"])
+
+    # Get persona instructions from notebook settings
+    settings = notebook.get("settings") or {}
+    persona_instructions = build_persona_instructions(settings)
 
     content, sources = await get_sources_content(notebook_id, request.source_ids)
 
@@ -122,6 +132,7 @@ async def generate_quiz(
         content=content[:50000],
         question_count=request.question_count,
         model_name=request.model,
+        persona_instructions=persona_instructions,
     )
 
     questions = parse_json_response(result["content"])
@@ -139,7 +150,11 @@ async def generate_study_guide(
     user: dict = Depends(get_current_user),
 ):
     """Generate a study guide from notebook sources."""
-    await verify_notebook_access(notebook_id, user["id"])
+    notebook = await verify_notebook_access(notebook_id, user["id"])
+
+    # Get persona instructions from notebook settings
+    settings = notebook.get("settings") or {}
+    persona_instructions = build_persona_instructions(settings)
 
     content, sources = await get_sources_content(notebook_id, request.source_ids)
 
@@ -149,6 +164,7 @@ async def generate_study_guide(
     result = await gemini_service.generate_study_guide(
         content=content[:50000],
         model_name=request.model,
+        persona_instructions=persona_instructions,
     )
 
     guide = parse_json_response(result["content"])
@@ -166,7 +182,11 @@ async def generate_faq(
     user: dict = Depends(get_current_user),
 ):
     """Generate FAQ from notebook sources."""
-    await verify_notebook_access(notebook_id, user["id"])
+    notebook = await verify_notebook_access(notebook_id, user["id"])
+
+    # Get persona instructions from notebook settings
+    settings = notebook.get("settings") or {}
+    persona_instructions = build_persona_instructions(settings)
 
     content, sources = await get_sources_content(notebook_id, request.source_ids)
 
@@ -177,6 +197,7 @@ async def generate_faq(
         content=content[:50000],
         count=request.count,
         model_name=request.model,
+        persona_instructions=persona_instructions,
     )
 
     faqs = parse_json_response(result["content"])

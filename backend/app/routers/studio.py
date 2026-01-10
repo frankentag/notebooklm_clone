@@ -14,16 +14,17 @@ from app.models.schemas import (
 from app.services.auth import get_current_user
 from app.services.supabase_client import get_supabase_client
 from app.services.gemini import gemini_service
+from app.services.persona_utils import build_persona_instructions
 
 router = APIRouter(prefix="/notebooks/{notebook_id}/studio", tags=["studio"])
 
 
 async def verify_notebook_access(notebook_id: UUID, user_id: str):
-    """Verify user has access to the notebook."""
+    """Verify user has access to the notebook and return notebook data with settings."""
     supabase = get_supabase_client()
     result = (
         supabase.table("notebooks")
-        .select("id")
+        .select("id, settings")
         .eq("id", str(notebook_id))
         .eq("user_id", user_id)
         .single()
@@ -145,7 +146,11 @@ async def generate_data_table(
     user: dict = Depends(get_current_user),
 ):
     """Generate a data table from notebook sources."""
-    await verify_notebook_access(notebook_id, user["id"])
+    notebook = await verify_notebook_access(notebook_id, user["id"])
+
+    # Get persona instructions from notebook settings
+    settings = notebook.get("settings") or {}
+    persona_instructions = build_persona_instructions(settings)
 
     content, sources = await get_sources_content(notebook_id, request.source_ids)
 
@@ -171,6 +176,7 @@ async def generate_data_table(
             content=content[:50000],
             custom_instructions=request.custom_instructions,
             model_name=request.model,
+            persona_instructions=persona_instructions,
         )
 
         table_data = parse_json_response(result["content"])
@@ -204,7 +210,11 @@ async def generate_report(
     user: dict = Depends(get_current_user),
 ):
     """Generate a briefing document/report from notebook sources."""
-    await verify_notebook_access(notebook_id, user["id"])
+    notebook = await verify_notebook_access(notebook_id, user["id"])
+
+    # Get persona instructions from notebook settings
+    settings = notebook.get("settings") or {}
+    persona_instructions = build_persona_instructions(settings)
 
     content, sources = await get_sources_content(notebook_id, request.source_ids)
 
@@ -229,6 +239,7 @@ async def generate_report(
             content=content[:50000],
             custom_instructions=request.custom_instructions,
             model_name=request.model,
+            persona_instructions=persona_instructions,
         )
 
         report_data = parse_json_response(result["content"])
@@ -261,7 +272,11 @@ async def generate_slide_deck(
     user: dict = Depends(get_current_user),
 ):
     """Generate a slide deck from notebook sources."""
-    await verify_notebook_access(notebook_id, user["id"])
+    notebook = await verify_notebook_access(notebook_id, user["id"])
+
+    # Get persona instructions from notebook settings
+    settings = notebook.get("settings") or {}
+    persona_instructions = build_persona_instructions(settings)
 
     content, sources = await get_sources_content(notebook_id, request.source_ids)
 
@@ -287,6 +302,7 @@ async def generate_slide_deck(
             slide_count=request.slide_count,
             custom_instructions=request.custom_instructions,
             model_name=request.model,
+            persona_instructions=persona_instructions,
         )
 
         slides_data = parse_json_response(result["content"])
@@ -319,7 +335,11 @@ async def generate_infographic(
     user: dict = Depends(get_current_user),
 ):
     """Generate an infographic from notebook sources."""
-    await verify_notebook_access(notebook_id, user["id"])
+    notebook = await verify_notebook_access(notebook_id, user["id"])
+
+    # Get persona instructions from notebook settings
+    settings = notebook.get("settings") or {}
+    persona_instructions = build_persona_instructions(settings)
 
     content, sources = await get_sources_content(notebook_id, request.source_ids)
 
@@ -346,6 +366,7 @@ async def generate_infographic(
             style=request.style,
             custom_instructions=request.custom_instructions,
             model_name=request.model,
+            persona_instructions=persona_instructions,
         )
 
         infographic_data = parse_json_response(result["content"])

@@ -1,108 +1,107 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/Status-Alpha-orange?style=for-the-badge" alt="Status">
+  <img src="https://img.shields.io/badge/Status-Production%20Ready-success?style=for-the-badge" alt="Status">
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
   <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge" alt="PRs Welcome">
+  <img src="https://img.shields.io/badge/Gemini-2.0-blue?style=for-the-badge&logo=google" alt="Gemini">
 </p>
 
 <h1 align="center">NotebookLM Reimagined</h1>
 
 <p align="center">
-  <strong>An API-first research intelligence platform</strong><br>
-  <em>Google's NotebookLM, reimagined for developers</em>
+  <strong>The open-source research intelligence platform that does what NotebookLM won't.</strong>
 </p>
 
 <p align="center">
-  <a href="#features">Features</a> •
-  <a href="#architecture">Architecture</a> •
-  <a href="#quick-start">Quick Start</a> •
-  <a href="#api-reference">API Reference</a> •
-  <a href="#contributing">Contributing</a>
+  <em>API-first. Self-hostable. Fully customizable. Built for developers who demand more.</em>
+</p>
+
+<p align="center">
+  <a href="#-why-this-exists">Why This Exists</a> •
+  <a href="#-features">Features</a> •
+  <a href="#-quick-start">Quick Start</a> •
+  <a href="#-architecture">Architecture</a> •
+  <a href="#-api-reference">API Reference</a>
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/placeholder-screenshot.png" alt="NotebookLM Reimagined Screenshot" width="800">
 </p>
 
 ---
 
-## What is NotebookLM Reimagined?
+## Why This Exists
 
-NotebookLM Reimagined is an **API-first** research platform that lets you:
+Google's NotebookLM is powerful, but it's a black box. You can't:
+- Access your data via API
+- Self-host for privacy
+- Customize the AI behavior
+- Export your research
+- Build automations
 
-- **Upload any document** (PDFs, URLs, YouTube videos, text) and chat with your sources
-- **Generate podcast-style audio** summaries of your research
-- **Create study materials** (flashcards, quizzes, study guides) automatically
-- **Query across ALL your notebooks** with a single API call
-- **Access everything via API** for automation and integrations
+**NotebookLM Reimagined fixes all of that.**
 
-Unlike proprietary alternatives, NotebookLM Reimagined gives you:
-- Full control over your data
-- API-first design for developers
-- Self-hosting capability
-- Complete cost transparency per operation
+Built from the ground up with an API-first philosophy, every single feature is accessible programmatically. Your research, your data, your rules.
 
 ---
 
 ## Features
 
-### Core Features
+### Research & Chat
 | Feature | Description |
 |---------|-------------|
-| **Multi-Source RAG** | Chat with PDFs, URLs, YouTube transcripts, and text |
-| **Citation Tracking** | Every response includes source citations |
-| **Global Search** | Query across ALL notebooks simultaneously |
-| **Cost Transparency** | See token usage and cost for every operation |
+| **Multi-Source RAG** | Upload PDFs, paste URLs, add YouTube videos, or write notes—chat with all of them simultaneously |
+| **Citation Tracking** | Every AI response includes clickable citations back to the exact source |
+| **Global Search** | Query across ALL your notebooks with a single API call |
+| **AI Personas** | Configure how the AI responds: Critical Reviewer, Simple Explainer, Technical Expert, Socratic Teacher, or create your own |
+| **Multiple Chat Threads** | Maintain separate conversations per notebook with full history |
 
 ### Content Generation
 | Feature | Description |
 |---------|-------------|
-| **Audio Overviews** | Generate podcast-style summaries (deep dive, brief, debate) |
-| **Video Overviews** | Create video summaries with Veo |
-| **Study Materials** | Auto-generate flashcards, quizzes, study guides, FAQs |
-| **Studio Outputs** | Generate data tables, reports, slide decks, infographics |
+| **Audio Overviews** | Generate podcast-style discussions with multiple AI hosts (Deep Dive, Brief Summary, Debate Mode) |
+| **Video Overviews** | Create AI-generated video summaries powered by Veo |
+| **Study Materials** | Auto-generate flashcards, quizzes, study guides, FAQs, and mind maps |
+| **Creative Outputs** | Generate data tables, briefing documents, slide decks, and infographics |
 
 ### Developer Experience
 | Feature | Description |
 |---------|-------------|
-| **API Keys** | Full API key management with scopes and rate limits |
-| **50+ Endpoints** | Comprehensive REST API for everything |
-| **Interactive Docs** | Built-in documentation with copy-paste cURL examples |
-| **Dual Auth** | Support for both JWT and API key authentication |
+| **Full API Access** | 50+ REST endpoints for complete programmatic control |
+| **Export Everything** | Download notebooks as ZIP (all files), JSON (structured data), or PDF (summary) |
+| **Cost Transparency** | See exact token usage and USD cost for every single operation |
+| **React Query Caching** | Lightning-fast UI with intelligent cache invalidation |
+| **Customizable Preferences** | Control response length, tone, citation style, and example inclusion |
 
 ---
 
-## Architecture
+## What's New
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                         Frontend                                 │
-│                   Next.js 14 + shadcn/ui                        │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      FastAPI Backend                             │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │
-│  │Notebooks │ │ Sources  │ │   Chat   │ │  Audio   │  ...      │
-│  │  Router  │ │  Router  │ │  Router  │ │  Router  │           │
-│  └──────────┘ └──────────┘ └──────────┘ └──────────┘           │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-              ┌───────────────┼───────────────┐
-              ▼               ▼               ▼
-┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
-│    Supabase     │ │   Gemini API    │ │ Supabase Storage│
-│   PostgreSQL    │ │   (AI/RAG)      │ │    (Files)      │
-│   + Auth + RLS  │ │                 │ │                 │
-└─────────────────┘ └─────────────────┘ └─────────────────┘
-```
+### Chat Threads
+Maintain multiple conversation threads within each notebook. Search, filter, rename, and organize your research discussions.
 
-### Tech Stack
+### Full Notebook Export
+Export your entire research with one click:
+- **ZIP** — All source files, chat history, notes, and generated content
+- **JSON** — Structured data for programmatic access
+- **PDF** — Human-readable summary document
 
-| Layer | Technology |
-|-------|------------|
-| **Frontend** | Next.js 14, React, Tailwind CSS, shadcn/ui |
-| **Backend** | FastAPI (Python 3.11+) |
-| **Database** | Supabase PostgreSQL with Row Level Security |
-| **Auth** | Supabase Auth (JWT) + Custom API Keys |
-| **Storage** | Supabase Storage |
-| **AI/LLM** | Google Gemini API (2.0 Flash, Pro, TTS, Veo) |
+### AI Personas & Preferences
+Customize how the AI thinks and responds:
+
+| Persona | Behavior |
+|---------|----------|
+| **Critical Reviewer** | Questions assumptions, identifies weaknesses, thorough critique |
+| **Simple Explainer** | ELI5-style, avoids jargon, uses relatable examples |
+| **Technical Expert** | Deep technical detail, precise terminology, comprehensive |
+| **Creative Thinker** | Novel connections, unconventional perspectives, brainstorming |
+| **Socratic Teacher** | Guides through questions, promotes critical thinking |
+| **Custom** | Write your own persona instructions |
+
+Plus fine-tune preferences:
+- Response length (Concise / Balanced / Detailed)
+- Tone (Professional / Casual / Academic)
+- Citation style (Inline / Footnote / None)
+- Include examples toggle
 
 ---
 
@@ -112,17 +111,17 @@ Unlike proprietary alternatives, NotebookLM Reimagined gives you:
 
 - Python 3.11+
 - Node.js 18+
-- Supabase account
+- Supabase account (free tier works)
 - Google AI API key
 
-### 1. Clone the Repository
+### 1. Clone & Setup
 
 ```bash
 git clone https://github.com/promptadvisers/notebooklmreimagined.git
 cd notebooklmreimagined
 ```
 
-### 2. Backend Setup
+### 2. Backend
 
 ```bash
 cd backend
@@ -130,39 +129,80 @@ python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
-# Create .env file
-cat > .env << EOF
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_ANON_KEY=your-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-GOOGLE_API_KEY=your-google-api-key
-EOF
+# Create .env
+cp .env.example .env
+# Edit .env with your keys
 
-# Run the server
-uvicorn app.main:app --reload
+uvicorn app.main:app --reload --port 8000
 ```
 
-### 3. Frontend Setup
+### 3. Frontend
 
 ```bash
 cd frontend
 npm install
 
 # Create .env.local
-cat > .env.local << EOF
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-NEXT_PUBLIC_API_URL=http://localhost:8000
-EOF
+cp .env.example .env.local
+# Edit .env.local with your keys
 
 npm run dev
 ```
 
-### 4. Access the Application
+### 4. Open
 
-- **Frontend**: http://localhost:3000
+- **App**: http://localhost:3000
 - **API Docs**: http://localhost:8000/docs
-- **Interactive API Docs**: http://localhost:3000/docs
+
+---
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                            FRONTEND                                      │
+│                     Next.js 14 + React Query                             │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐       │
+│  │  Dashboard  │ │  Notebook   │ │   Studio    │ │   Settings  │       │
+│  │    Page     │ │  3-Panel    │ │   Panel     │ │    Page     │       │
+│  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘       │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                            BACKEND                                       │
+│                         FastAPI (Python)                                 │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐     │
+│  │Notebooks │ │ Sources  │ │   Chat   │ │  Audio   │ │  Export  │     │
+│  │  Router  │ │  Router  │ │  Router  │ │  Router  │ │  Router  │     │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘     │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐     │
+│  │  Video   │ │  Study   │ │  Studio  │ │ Research │ │ API Keys │     │
+│  │  Router  │ │  Router  │ │  Router  │ │  Router  │ │  Router  │     │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘     │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                 ┌──────────────────┼──────────────────┐
+                 ▼                  ▼                  ▼
+┌─────────────────────┐ ┌─────────────────────┐ ┌─────────────────────┐
+│      SUPABASE       │ │     GEMINI API      │ │   SUPABASE STORAGE  │
+│     PostgreSQL      │ │    2.0 Flash/Pro    │ │       (Files)       │
+│    + Auth + RLS     │ │   TTS + Veo + DR    │ │                     │
+└─────────────────────┘ └─────────────────────┘ └─────────────────────┘
+```
+
+### Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Frontend** | Next.js 14, React 18, TypeScript, Tailwind CSS, shadcn/ui, Framer Motion |
+| **State** | React Query (TanStack Query) with intelligent caching |
+| **Backend** | FastAPI (Python 3.11+) with async support |
+| **Database** | Supabase PostgreSQL with Row Level Security |
+| **Auth** | Supabase Auth (JWT) + Custom API Keys |
+| **Storage** | Supabase Storage for file uploads |
+| **AI Models** | Gemini 2.0 Flash, Gemini Pro, Gemini TTS, Veo, Deep Research |
+| **Export** | jsPDF, JSZip for client-side document generation |
 
 ---
 
@@ -170,69 +210,76 @@ npm run dev
 
 ### Authentication
 
-All API requests require authentication via API key:
-
 ```bash
+# Using API Key (recommended for integrations)
 curl -X GET "http://localhost:8000/api/v1/notebooks" \
-  -H "X-API-Key: nb_live_your_api_key_here"
+  -H "X-API-Key: nb_live_your_api_key"
+
+# Using JWT (for frontend)
+curl -X GET "http://localhost:8000/api/v1/notebooks" \
+  -H "Authorization: Bearer your_jwt_token"
 ```
 
-### Key Endpoints
+### Core Endpoints
 
 #### Notebooks
 ```bash
-# List notebooks
-GET /api/v1/notebooks
-
-# Create notebook
-POST /api/v1/notebooks
-{"name": "My Research", "emoji": "📚"}
+GET    /api/v1/notebooks              # List all notebooks
+POST   /api/v1/notebooks              # Create notebook
+GET    /api/v1/notebooks/{id}         # Get notebook
+PATCH  /api/v1/notebooks/{id}         # Update notebook
+DELETE /api/v1/notebooks/{id}         # Delete notebook
+PATCH  /api/v1/notebooks/{id}/settings # Update AI persona settings
 ```
 
 #### Sources
 ```bash
-# Add text source
-POST /api/v1/notebooks/{id}/sources/text
-{"name": "Notes", "content": "Your text here..."}
-
-# Add URL
-POST /api/v1/notebooks/{id}/sources/url
-{"url": "https://example.com/article"}
-
-# Add YouTube video
-POST /api/v1/notebooks/{id}/sources/youtube
-{"url": "https://youtube.com/watch?v=..."}
+GET    /api/v1/notebooks/{id}/sources           # List sources
+POST   /api/v1/notebooks/{id}/sources/text      # Add text
+POST   /api/v1/notebooks/{id}/sources/url       # Add URL
+POST   /api/v1/notebooks/{id}/sources/youtube   # Add YouTube
+POST   /api/v1/notebooks/{id}/sources/pdf       # Upload PDF
+DELETE /api/v1/notebooks/{id}/sources/{sid}     # Delete source
 ```
 
 #### Chat
 ```bash
-# Chat with sources
-POST /api/v1/notebooks/{id}/chat
-{"message": "What are the main findings?"}
-
-# Global chat (across ALL notebooks)
-POST /api/v1/chat/global
-{"message": "Find everything about machine learning", "notebook_ids": null}
+POST   /api/v1/notebooks/{id}/chat              # Send message
+GET    /api/v1/notebooks/{id}/chat/sessions     # List sessions
+POST   /api/v1/notebooks/{id}/chat/sessions     # Create session
+PATCH  /api/v1/notebooks/{id}/chat/sessions/{s} # Rename session
+DELETE /api/v1/notebooks/{id}/chat/sessions/{s} # Delete session
+POST   /api/v1/chat/global                      # Global search
 ```
 
-#### Study Materials
+#### Content Generation
 ```bash
-# Generate flashcards
-POST /api/v1/notebooks/{id}/flashcards
-{"count": 10}
+POST   /api/v1/notebooks/{id}/audio             # Generate audio
+POST   /api/v1/notebooks/{id}/video             # Generate video
+POST   /api/v1/notebooks/{id}/flashcards        # Generate flashcards
+POST   /api/v1/notebooks/{id}/quiz              # Generate quiz
+POST   /api/v1/notebooks/{id}/study-guide       # Generate study guide
+POST   /api/v1/notebooks/{id}/faq               # Generate FAQ
+POST   /api/v1/notebooks/{id}/studio/report     # Generate report
+POST   /api/v1/notebooks/{id}/studio/slide-deck # Generate slides
+```
 
-# Generate quiz
-POST /api/v1/notebooks/{id}/quiz
-{"question_count": 10}
+#### Export
+```bash
+GET    /api/v1/notebooks/{id}/export/json       # Export as JSON
+GET    /api/v1/notebooks/{id}/export/zip        # Export as ZIP
 ```
 
 ### Response Format
 
-All responses include usage information:
+Every response includes usage telemetry:
 
 ```json
 {
-  "data": { ... },
+  "data": {
+    "message": "Based on the sources...",
+    "citations": [{"source_id": "...", "text": "..."}]
+  },
   "usage": {
     "input_tokens": 1500,
     "output_tokens": 500,
@@ -242,8 +289,6 @@ All responses include usage information:
 }
 ```
 
-For complete API documentation with cURL examples, visit `/docs` in the frontend.
-
 ---
 
 ## Project Structure
@@ -252,41 +297,52 @@ For complete API documentation with cURL examples, visit `/docs` in the frontend
 notebooklmreimagined/
 ├── backend/
 │   ├── app/
-│   │   ├── main.py              # FastAPI entry point
-│   │   ├── config.py            # Settings management
-│   │   ├── routers/             # API endpoints
-│   │   │   ├── notebooks.py
-│   │   │   ├── sources.py
-│   │   │   ├── chat.py
-│   │   │   ├── global_chat.py   # Cross-notebook queries
-│   │   │   ├── audio.py
-│   │   │   ├── video.py
-│   │   │   ├── study.py
-│   │   │   ├── notes.py
-│   │   │   ├── studio.py
-│   │   │   ├── research.py
-│   │   │   └── api_keys.py
+│   │   ├── main.py                 # FastAPI entry point
+│   │   ├── config.py               # Settings management
+│   │   ├── routers/
+│   │   │   ├── notebooks.py        # CRUD operations
+│   │   │   ├── sources.py          # Document management
+│   │   │   ├── chat.py             # Conversations
+│   │   │   ├── global_chat.py      # Cross-notebook search
+│   │   │   ├── audio.py            # Audio generation
+│   │   │   ├── video.py            # Video generation
+│   │   │   ├── study.py            # Study materials
+│   │   │   ├── studio.py           # Creative outputs
+│   │   │   ├── export.py           # Export functionality
+│   │   │   ├── notes.py            # User notes
+│   │   │   ├── research.py         # Deep research
+│   │   │   └── api_keys.py         # API key management
 │   │   ├── services/
-│   │   │   ├── auth.py          # JWT + API key auth
-│   │   │   ├── gemini.py        # Gemini API integration
-│   │   │   └── supabase_client.py
+│   │   │   ├── gemini.py           # Gemini API integration
+│   │   │   ├── persona_utils.py    # AI persona builder
+│   │   │   ├── auth.py             # Authentication
+│   │   │   └── supabase_client.py  # Database client
 │   │   └── models/
-│   │       └── schemas.py       # Pydantic models
+│   │       └── schemas.py          # Pydantic models
 │   └── requirements.txt
 │
 ├── frontend/
 │   ├── src/
 │   │   ├── app/
-│   │   │   ├── page.tsx         # Dashboard
-│   │   │   ├── settings/        # API key management
-│   │   │   ├── docs/            # Interactive API docs
-│   │   │   └── notebooks/[id]/  # Notebook view
+│   │   │   ├── page.tsx            # Dashboard
+│   │   │   ├── notebooks/[id]/     # Notebook view
+│   │   │   │   ├── page.tsx        # 3-panel layout
+│   │   │   │   └── history/        # Content history
+│   │   │   ├── settings/           # API keys
+│   │   │   └── docs/               # API documentation
 │   │   ├── components/
+│   │   │   ├── chat/               # Chat panel
+│   │   │   ├── sources/            # Sources panel
+│   │   │   ├── studio/             # Studio panel
+│   │   │   ├── notebook/           # Settings dialog
+│   │   │   └── ui/                 # shadcn components
 │   │   └── lib/
-│   │       └── api.ts           # API client
+│   │       ├── api.ts              # API client
+│   │       ├── export-utils.ts     # Export functions
+│   │       └── hooks/              # React Query hooks
 │   └── package.json
 │
-├── CLAUDE.md                    # AI assistant instructions
+├── CLAUDE.md                       # AI development instructions
 └── README.md
 ```
 
@@ -294,22 +350,22 @@ notebooklmreimagined/
 
 ## Database Schema
 
-The application uses 12 PostgreSQL tables with Row Level Security:
+12 PostgreSQL tables with Row Level Security:
 
 | Table | Purpose |
 |-------|---------|
 | `profiles` | User profiles (extends Supabase Auth) |
-| `notebooks` | User notebooks |
-| `sources` | Documents, URLs, YouTube transcripts |
-| `chat_sessions` | Conversation sessions |
-| `chat_messages` | Individual messages with citations |
-| `audio_overviews` | Generated audio content |
+| `notebooks` | User notebooks with settings (persona, preferences) |
+| `sources` | Documents, URLs, YouTube transcripts with source guides |
+| `chat_sessions` | Named conversation threads |
+| `chat_messages` | Messages with citations |
+| `audio_overviews` | Generated podcast content |
 | `video_overviews` | Generated video content |
 | `research_tasks` | Deep research jobs |
 | `notes` | User notes and saved responses |
-| `studio_outputs` | Generated reports, tables, slides |
-| `api_keys` | API key management |
-| `api_key_usage_logs` | API usage tracking |
+| `studio_outputs` | Reports, tables, slides, infographics |
+| `api_keys` | API key management with scopes |
+| `api_key_usage_logs` | Usage tracking per key |
 
 ---
 
@@ -332,53 +388,64 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 
 ---
 
-## Contributing
-
-We welcome contributions! Here's how to get started:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Run tests
-5. Commit (`git commit -m 'Add amazing feature'`)
-6. Push (`git push origin feature/amazing-feature`)
-7. Open a Pull Request
-
-### Development Guidelines
-
-- Follow the existing code style
-- Add tests for new features
-- Update documentation
-- Keep the API docs in sync with changes
-
----
-
 ## Roadmap
 
+- [x] Multi-source RAG chat
+- [x] Audio overview generation
+- [x] Video overview generation
+- [x] Study materials (flashcards, quizzes, guides)
+- [x] Studio outputs (reports, slides, infographics)
+- [x] API key management
+- [x] Global cross-notebook search
+- [x] **Chat threads with search**
+- [x] **Full notebook export (ZIP/JSON/PDF)**
+- [x] **AI personas and preferences**
 - [ ] Streaming chat responses
+- [ ] Collaborative notebooks (teams)
 - [ ] Webhook integrations
-- [ ] Team/organization support
 - [ ] Custom embedding models
 - [ ] Local LLM support (Ollama)
 - [ ] Browser extension
-- [ ] Mobile apps
+- [ ] Mobile apps (React Native)
+
+---
+
+## Contributing
+
+We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md) for details.
+
+```bash
+# Fork, clone, then:
+git checkout -b feature/your-feature
+# Make changes
+git commit -m "Add your feature"
+git push origin feature/your-feature
+# Open a PR
+```
 
 ---
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License — use it however you want.
 
 ---
 
 ## Acknowledgments
 
 - Inspired by Google's NotebookLM
-- Built with [Supabase](https://supabase.com), [FastAPI](https://fastapi.tiangolo.com), and [Next.js](https://nextjs.org)
+- Built with [Supabase](https://supabase.com), [FastAPI](https://fastapi.tiangolo.com), [Next.js](https://nextjs.org)
 - AI powered by [Google Gemini](https://ai.google.dev)
+- UI components from [shadcn/ui](https://ui.shadcn.com)
 
 ---
 
 <p align="center">
-  <strong>Built with ❤️ by the Open Source Community</strong>
+  <strong>Built with obsessive attention to detail.</strong><br>
+  <em>Because researchers deserve better tools.</em>
+</p>
+
+<p align="center">
+  <a href="https://github.com/promptadvisers/notebooklmreimagined/stargazers">Star us on GitHub</a> •
+  <a href="https://twitter.com/promptadvisers">Follow on Twitter</a>
 </p>

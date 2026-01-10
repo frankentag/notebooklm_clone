@@ -79,12 +79,19 @@ class GeminiService:
         context: str,
         model_name: str = "gemini-2.0-flash",
         source_names: Optional[List[str]] = None,
+        persona_instructions: Optional[str] = None,
     ) -> Dict[str, Any]:
         """Generate content with document context for RAG."""
-        system_instruction = """You are a helpful research assistant. Answer questions based on the provided sources.
+        base_instruction = """You are a helpful research assistant. Answer questions based on the provided sources.
 Always cite your sources using [1], [2], etc. notation when referencing specific information.
 If the information is not in the sources, say so clearly.
 Be concise but thorough."""
+
+        # Prepend persona instructions if provided
+        if persona_instructions:
+            system_instruction = f"{persona_instructions}\n\n{base_instruction}"
+        else:
+            system_instruction = base_instruction
 
         source_context = ""
         if source_names:
@@ -128,7 +135,11 @@ Format your response as JSON:
         return await self.generate_content(prompt=prompt, model_name=model_name)
 
     async def generate_flashcards(
-        self, content: str, count: int = 10, model_name: str = "gemini-2.0-flash"
+        self,
+        content: str,
+        count: int = 10,
+        model_name: str = "gemini-2.0-flash",
+        persona_instructions: Optional[str] = None,
     ) -> Dict[str, Any]:
         """Generate flashcards from content."""
         prompt = f"""Create {count} educational flashcards from this content.
@@ -143,10 +154,18 @@ Format as JSON array:
     ...
 ]"""
 
-        return await self.generate_content(prompt=prompt, model_name=model_name)
+        return await self.generate_content(
+            prompt=prompt,
+            model_name=model_name,
+            system_instruction=persona_instructions,
+        )
 
     async def generate_quiz(
-        self, content: str, question_count: int = 10, model_name: str = "gemini-2.0-flash"
+        self,
+        content: str,
+        question_count: int = 10,
+        model_name: str = "gemini-2.0-flash",
+        persona_instructions: Optional[str] = None,
     ) -> Dict[str, Any]:
         """Generate a quiz from content."""
         prompt = f"""Create a {question_count}-question multiple choice quiz from this content.
@@ -166,10 +185,17 @@ Format as JSON array:
     ...
 ]"""
 
-        return await self.generate_content(prompt=prompt, model_name=model_name)
+        return await self.generate_content(
+            prompt=prompt,
+            model_name=model_name,
+            system_instruction=persona_instructions,
+        )
 
     async def generate_study_guide(
-        self, content: str, model_name: str = "gemini-2.0-flash"
+        self,
+        content: str,
+        model_name: str = "gemini-2.0-flash",
+        persona_instructions: Optional[str] = None,
     ) -> Dict[str, Any]:
         """Generate a comprehensive study guide."""
         prompt = f"""Create a comprehensive study guide from this content.
@@ -190,10 +216,18 @@ Format as JSON:
     "review_questions": ["...", "..."]
 }}"""
 
-        return await self.generate_content(prompt=prompt, model_name=model_name)
+        return await self.generate_content(
+            prompt=prompt,
+            model_name=model_name,
+            system_instruction=persona_instructions,
+        )
 
     async def generate_faq(
-        self, content: str, count: int = 10, model_name: str = "gemini-2.0-flash"
+        self,
+        content: str,
+        count: int = 10,
+        model_name: str = "gemini-2.0-flash",
+        persona_instructions: Optional[str] = None,
     ) -> Dict[str, Any]:
         """Generate FAQ from content."""
         prompt = f"""Generate {count} frequently asked questions and answers about this content.
@@ -208,7 +242,11 @@ Format as JSON array:
     ...
 ]"""
 
-        return await self.generate_content(prompt=prompt, model_name=model_name)
+        return await self.generate_content(
+            prompt=prompt,
+            model_name=model_name,
+            system_instruction=persona_instructions,
+        )
 
     async def generate_audio_script(
         self,
@@ -401,6 +439,152 @@ Note: In production, this would use Deep Research API for real web search and an
         ]
 
         return result
+
+    async def generate_data_table(
+        self,
+        content: str,
+        custom_instructions: Optional[str] = None,
+        model_name: str = "gemini-2.0-flash",
+        persona_instructions: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """Generate a data table from content."""
+        extra = ""
+        if custom_instructions:
+            extra = f"\n\nAdditional instructions: {custom_instructions}"
+
+        prompt = f"""Extract and organize the key data from this content into a structured table.{extra}
+
+Content:
+{content}
+
+Format as JSON:
+{{
+    "title": "...",
+    "columns": ["Column 1", "Column 2", ...],
+    "rows": [
+        ["value1", "value2", ...],
+        ...
+    ],
+    "summary": "Brief description of what this table shows"
+}}"""
+
+        return await self.generate_content(
+            prompt=prompt,
+            model_name=model_name,
+            system_instruction=persona_instructions,
+        )
+
+    async def generate_report(
+        self,
+        content: str,
+        custom_instructions: Optional[str] = None,
+        model_name: str = "gemini-2.0-flash",
+        persona_instructions: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """Generate a briefing document/report from content."""
+        extra = ""
+        if custom_instructions:
+            extra = f"\n\nAdditional instructions: {custom_instructions}"
+
+        prompt = f"""Create a comprehensive briefing document/report from this content.{extra}
+
+Content:
+{content}
+
+Format as JSON:
+{{
+    "title": "...",
+    "executive_summary": "...",
+    "key_findings": ["...", "..."],
+    "sections": [
+        {{"heading": "...", "content": "..."}}
+    ],
+    "conclusion": "...",
+    "recommendations": ["...", "..."]
+}}"""
+
+        return await self.generate_content(
+            prompt=prompt,
+            model_name=model_name,
+            system_instruction=persona_instructions,
+        )
+
+    async def generate_slide_deck(
+        self,
+        content: str,
+        slide_count: int = 10,
+        custom_instructions: Optional[str] = None,
+        model_name: str = "gemini-2.0-flash",
+        persona_instructions: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """Generate a slide deck from content."""
+        extra = ""
+        if custom_instructions:
+            extra = f"\n\nAdditional instructions: {custom_instructions}"
+
+        prompt = f"""Create a {slide_count}-slide presentation from this content.{extra}
+
+Content:
+{content}
+
+Format as JSON:
+{{
+    "title": "...",
+    "subtitle": "...",
+    "slides": [
+        {{
+            "title": "...",
+            "bullet_points": ["...", "..."],
+            "speaker_notes": "..."
+        }}
+    ]
+}}"""
+
+        return await self.generate_content(
+            prompt=prompt,
+            model_name=model_name,
+            system_instruction=persona_instructions,
+        )
+
+    async def generate_infographic_plan(
+        self,
+        content: str,
+        style: str = "modern",
+        custom_instructions: Optional[str] = None,
+        model_name: str = "gemini-2.0-flash",
+        persona_instructions: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """Generate an infographic content plan."""
+        extra = ""
+        if custom_instructions:
+            extra = f"\n\nAdditional instructions: {custom_instructions}"
+
+        prompt = f"""Create an infographic content plan in a {style} style from this content.{extra}
+
+Content:
+{content}
+
+Format as JSON:
+{{
+    "title": "...",
+    "subtitle": "...",
+    "sections": [
+        {{
+            "heading": "...",
+            "icon_suggestion": "...",
+            "key_stats": ["...", "..."],
+            "description": "..."
+        }}
+    ],
+    "color_scheme": ["#hex1", "#hex2", "#hex3"],
+    "image_prompt": "Detailed prompt for generating the infographic image"
+}}"""
+
+        return await self.generate_content(
+            prompt=prompt,
+            model_name=model_name,
+            system_instruction=persona_instructions,
+        )
 
 
 # Singleton instance

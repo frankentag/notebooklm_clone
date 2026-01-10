@@ -11,6 +11,9 @@ class Settings(BaseSettings):
     # Google/Gemini
     google_api_key: str
 
+    # AtlasCloud Video API (Wan 2.5)
+    atlascloud_api_key: str = ""
+
     # App
     app_name: str = "NotebookLM Reimagined"
     debug: bool = False

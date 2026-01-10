@@ -466,8 +466,8 @@ export async function exportSVGToPNG(
   // Get SVG dimensions
   const bbox = svgElement.getBBox()
   const viewBox = svgElement.getAttribute('viewBox')?.split(' ').map(Number) || [0, 0, 800, 600]
-  const width = viewBox[2] || bbox.width
-  const height = viewBox[3] || bbox.height
+  const width = viewBox[2] || bbox.width || 800
+  const height = viewBox[3] || bbox.height || 600
 
   // Create canvas
   const canvas = document.createElement('canvas')
@@ -484,26 +484,63 @@ export async function exportSVGToPNG(
   ctx.fillRect(0, 0, canvas.width, canvas.height)
   ctx.scale(scale, scale)
 
-  // Convert SVG to image
-  const svgData = new XMLSerializer().serializeToString(svgElement)
-  const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' })
-  const svgUrl = URL.createObjectURL(svgBlob)
+  // Clone SVG and inline styles to avoid cross-origin issues
+  const clonedSvg = svgElement.cloneNode(true) as SVGSVGElement
+
+  // Ensure SVG has proper dimensions
+  clonedSvg.setAttribute('width', String(width))
+  clonedSvg.setAttribute('height', String(height))
+
+  // Remove any external references that could cause CORS issues
+  const images = clonedSvg.querySelectorAll('image')
+  images.forEach(img => {
+    const href = img.getAttribute('href') || img.getAttribute('xlink:href')
+    // Remove external image references that could taint canvas
+    if (href && !href.startsWith('data:')) {
+      img.remove()
+    }
+  })
+
+  // Convert SVG to base64 data URL (avoids CORS tainting)
+  const svgData = new XMLSerializer().serializeToString(clonedSvg)
+  const svgBase64 = btoa(unescape(encodeURIComponent(svgData)))
+  const svgDataUrl = `data:image/svg+xml;base64,${svgBase64}`
 
   return new Promise((resolve, reject) => {
     const img = new Image()
     img.onload = () => {
-      ctx.drawImage(img, 0, 0)
-      URL.revokeObjectURL(svgUrl)
-
-      // Download
+      try {
+        ctx.drawImage(img, 0, 0)
+        // Download
+        const link = document.createElement('a')
+        link.download = `${filename}.png`
+        link.href = canvas.toDataURL('image/png')
+        link.click()
+        resolve()
+      } catch (error) {
+        // Fallback: download as SVG if PNG export fails
+        console.error('PNG export failed, falling back to SVG:', error)
+        const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' })
+        const link = document.createElement('a')
+        link.download = `${filename}.svg`
+        link.href = URL.createObjectURL(svgBlob)
+        link.click()
+        URL.revokeObjectURL(link.href)
+        resolve()
+      }
+    }
+    img.onerror = () => {
+      // Fallback: download as SVG if image load fails
+      console.error('Image load failed, falling back to SVG')
+      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' })
       const link = document.createElement('a')
-      link.download = `${filename}.png`
-      link.href = canvas.toDataURL('image/png')
+      link.download = `${filename}.svg`
+      link.href = URL.createObjectURL(svgBlob)
       link.click()
+      URL.revokeObjectURL(link.href)
       resolve()
     }
-    img.onerror = reject
-    img.src = svgUrl
+    img.src = svgDataUrl
   })
 }
 
@@ -547,4 +584,502 @@ export function downloadBlob(blob: Blob, filename: string): void {
   link.click()
   document.body.removeChild(link)
   URL.revokeObjectURL(url)
+}
+
+// ============================================================================
+// Notebook Export
+// ============================================================================
+
+/**
+ * Options for notebook export
+ */
+export interface NotebookExportOptions {
+  includeSources?: boolean
+  includeChats?: boolean
+  includeNotes?: boolean
+  includeGenerated?: boolean
+  format: 'zip' | 'pdf' | 'json'
+}
+
+/**
+ * Notebook export data structure
+ */
+export interface NotebookExportData {
+  notebook: {
+    id: string
+    name: string
+    description?: string
+    emoji?: string
+    settings?: Record<string, unknown>
+    created_at: string
+  }
+  exported_at: string
+  export_version: string
+  sources?: Array<{
+    id: string
+    name: string
+    type: string
+    status: string
+    created_at: string
+    metadata?: Record<string, unknown>
+    source_guide?: Record<string, unknown>
+  }>
+  chat_sessions?: Array<{
+    id: string
+    title?: string
+    created_at: string
+    messages?: Array<{
+      id: string
+      role: string
+      content: string
+      citations?: unknown[]
+      created_at: string
+    }>
+  }>
+  notes?: Array<{
+    id: string
+    title?: string
+    content: string
+    tags?: string[]
+    is_pinned?: boolean
+    created_at: string
+  }>
+  audio_overviews?: Array<{
+    id: string
+    format?: string
+    status: string
+    script?: unknown
+    created_at: string
+  }>
+  video_overviews?: Array<{
+    id: string
+    style?: string
+    status: string
+    script?: unknown
+    created_at: string
+  }>
+  study_materials?: Array<{
+    id: string
+    type: string
+    data: unknown
+    created_at: string
+  }>
+  studio_outputs?: Array<{
+    id: string
+    type: string
+    title?: string
+    content: unknown
+    created_at: string
+  }>
+  research_tasks?: Array<{
+    id: string
+    query: string
+    status: string
+    report_content?: string
+    created_at: string
+  }>
+}
+
+/**
+ * Export a notebook as a ZIP file
+ */
+export async function exportNotebookAsZip(
+  notebookId: string,
+  options: Omit<NotebookExportOptions, 'format'>,
+  authToken: string
+): Promise<void> {
+  const params = new URLSearchParams({
+    format: 'zip',
+    includeSources: String(options.includeSources ?? true),
+    includeChats: String(options.includeChats ?? true),
+    includeNotes: String(options.includeNotes ?? true),
+    includeGenerated: String(options.includeGenerated ?? true),
+  })
+
+  const response = await fetch(`/api/notebooks/${notebookId}/export?${params}`, {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to export notebook')
+  }
+
+  const blob = await response.blob()
+  const contentDisposition = response.headers.get('Content-Disposition')
+  let filename = `notebook-export-${notebookId}.zip`
+
+  if (contentDisposition) {
+    const match = contentDisposition.match(/filename="?([^"]+)"?/)
+    if (match) {
+      filename = match[1]
+    }
+  }
+
+  downloadBlob(blob, filename)
+}
+
+/**
+ * Export a notebook as JSON
+ */
+export async function exportNotebookAsJson(
+  notebookId: string,
+  options: Omit<NotebookExportOptions, 'format'>,
+  authToken: string
+): Promise<NotebookExportData> {
+  const params = new URLSearchParams({
+    format: 'json',
+    includeSources: String(options.includeSources ?? true),
+    includeChats: String(options.includeChats ?? true),
+    includeNotes: String(options.includeNotes ?? true),
+    includeGenerated: String(options.includeGenerated ?? true),
+  })
+
+  const response = await fetch(`/api/notebooks/${notebookId}/export?${params}`, {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to export notebook')
+  }
+
+  const result = await response.json()
+  return result.data
+}
+
+/**
+ * Export a notebook as a comprehensive PDF document
+ */
+export async function exportNotebookAsPDF(
+  notebookId: string,
+  options: Omit<NotebookExportOptions, 'format'>,
+  authToken: string
+): Promise<void> {
+  // First, fetch all data via JSON
+  const exportData = await exportNotebookAsJson(notebookId, options, authToken)
+
+  const { jsPDF } = await import('jspdf')
+
+  const doc = new jsPDF({
+    orientation: 'portrait',
+    unit: 'mm',
+    format: 'a4',
+  })
+
+  const pageWidth = doc.internal.pageSize.getWidth()
+  const pageHeight = doc.internal.pageSize.getHeight()
+  const margin = 20
+  const contentWidth = pageWidth - margin * 2
+  let y = margin
+
+  // Helper to check for page break
+  const checkPageBreak = (height: number) => {
+    if (y + height > pageHeight - margin) {
+      doc.addPage()
+      y = margin
+      return true
+    }
+    return false
+  }
+
+  // Helper to add a section header
+  const addSectionHeader = (title: string) => {
+    checkPageBreak(20)
+    doc.setFontSize(16)
+    doc.setFont('helvetica', 'bold')
+    doc.setTextColor(51, 51, 51)
+    doc.text(title, margin, y)
+    y += 10
+    doc.setDrawColor(200, 200, 200)
+    doc.line(margin, y, pageWidth - margin, y)
+    y += 8
+  }
+
+  // Title page
+  doc.setFontSize(28)
+  doc.setFont('helvetica', 'bold')
+  doc.setTextColor(51, 51, 51)
+  const title = exportData.notebook.name
+  const titleLines = doc.splitTextToSize(title, contentWidth)
+  doc.text(titleLines, margin, y + 30)
+  y += 30 + titleLines.length * 12
+
+  if (exportData.notebook.description) {
+    doc.setFontSize(12)
+    doc.setFont('helvetica', 'normal')
+    doc.setTextColor(102, 102, 102)
+    const descLines = doc.splitTextToSize(exportData.notebook.description, contentWidth)
+    doc.text(descLines, margin, y)
+    y += descLines.length * 6 + 10
+  }
+
+  doc.setFontSize(10)
+  doc.setTextColor(150, 150, 150)
+  doc.text(`Exported from NotebookLM Reimagined`, margin, y)
+  y += 6
+  doc.text(`Date: ${new Date().toLocaleDateString()}`, margin, y)
+
+  // New page for content
+  doc.addPage()
+  y = margin
+
+  // Table of Contents
+  addSectionHeader('Table of Contents')
+  doc.setFontSize(11)
+  doc.setFont('helvetica', 'normal')
+  doc.setTextColor(68, 68, 68)
+
+  let tocItems = []
+  if (options.includeSources !== false && exportData.sources?.length) {
+    tocItems.push(`Sources (${exportData.sources.length})`)
+  }
+  if (options.includeChats !== false && exportData.chat_sessions?.length) {
+    tocItems.push(`Chat Sessions (${exportData.chat_sessions.length})`)
+  }
+  if (options.includeNotes !== false && exportData.notes?.length) {
+    tocItems.push(`Notes (${exportData.notes.length})`)
+  }
+  if (options.includeGenerated !== false) {
+    if (exportData.study_materials?.length) {
+      tocItems.push(`Study Materials (${exportData.study_materials.length})`)
+    }
+    if (exportData.research_tasks?.length) {
+      tocItems.push(`Research Reports (${exportData.research_tasks.length})`)
+    }
+  }
+
+  tocItems.forEach((item, idx) => {
+    doc.text(`${idx + 1}. ${item}`, margin + 5, y)
+    y += 7
+  })
+
+  y += 10
+
+  // Sources section
+  if (options.includeSources !== false && exportData.sources?.length) {
+    doc.addPage()
+    y = margin
+    addSectionHeader('Sources')
+
+    for (const source of exportData.sources) {
+      checkPageBreak(25)
+
+      doc.setFontSize(12)
+      doc.setFont('helvetica', 'bold')
+      doc.setTextColor(51, 51, 51)
+      const sourceName = doc.splitTextToSize(source.name, contentWidth - 20)
+      doc.text(sourceName, margin + 5, y)
+      y += sourceName.length * 5 + 3
+
+      doc.setFontSize(9)
+      doc.setFont('helvetica', 'normal')
+      doc.setTextColor(102, 102, 102)
+      doc.text(`Type: ${source.type} | Status: ${source.status}`, margin + 5, y)
+      y += 5
+
+      // Add source guide summary if available
+      if (source.source_guide) {
+        const guide = source.source_guide as Record<string, unknown>
+        if (guide.summary) {
+          checkPageBreak(20)
+          doc.setFontSize(10)
+          doc.setTextColor(68, 68, 68)
+          const summaryLines = doc.splitTextToSize(String(guide.summary), contentWidth - 10)
+          doc.text(summaryLines.slice(0, 4), margin + 5, y)
+          y += Math.min(summaryLines.length, 4) * 5
+        }
+      }
+
+      y += 8
+    }
+  }
+
+  // Chat sessions section
+  if (options.includeChats !== false && exportData.chat_sessions?.length) {
+    doc.addPage()
+    y = margin
+    addSectionHeader('Chat Sessions')
+
+    for (const session of exportData.chat_sessions) {
+      checkPageBreak(15)
+
+      doc.setFontSize(12)
+      doc.setFont('helvetica', 'bold')
+      doc.setTextColor(51, 51, 51)
+      doc.text(session.title || 'Untitled Session', margin + 5, y)
+      y += 7
+
+      if (session.messages?.length) {
+        doc.setFontSize(9)
+        doc.setTextColor(102, 102, 102)
+        doc.text(`${session.messages.length} messages`, margin + 5, y)
+        y += 6
+
+        // Show first few messages as preview
+        const previewMessages = session.messages.slice(0, 4)
+        for (const msg of previewMessages) {
+          checkPageBreak(15)
+          doc.setFontSize(10)
+          doc.setFont('helvetica', msg.role === 'user' ? 'bold' : 'normal')
+          doc.setTextColor(msg.role === 'user' ? 51 : 68, msg.role === 'user' ? 51 : 68, msg.role === 'user' ? 51 : 68)
+
+          const prefix = msg.role === 'user' ? 'Q: ' : 'A: '
+          const msgText = String(msg.content || '').slice(0, 200)
+          const lines = doc.splitTextToSize(prefix + msgText + (msgText.length >= 200 ? '...' : ''), contentWidth - 15)
+          doc.text(lines.slice(0, 3), margin + 10, y)
+          y += Math.min(lines.length, 3) * 5 + 3
+        }
+
+        if (session.messages.length > 4) {
+          doc.setFontSize(9)
+          doc.setTextColor(150, 150, 150)
+          doc.text(`... and ${session.messages.length - 4} more messages`, margin + 10, y)
+          y += 5
+        }
+      }
+
+      y += 8
+    }
+  }
+
+  // Notes section
+  if (options.includeNotes !== false && exportData.notes?.length) {
+    doc.addPage()
+    y = margin
+    addSectionHeader('Notes')
+
+    for (const note of exportData.notes) {
+      checkPageBreak(30)
+
+      doc.setFontSize(12)
+      doc.setFont('helvetica', 'bold')
+      doc.setTextColor(51, 51, 51)
+      doc.text(note.title || 'Untitled Note', margin + 5, y)
+      y += 7
+
+      if (note.tags?.length) {
+        doc.setFontSize(9)
+        doc.setTextColor(102, 102, 102)
+        doc.text(`Tags: ${note.tags.join(', ')}`, margin + 5, y)
+        y += 5
+      }
+
+      doc.setFontSize(10)
+      doc.setFont('helvetica', 'normal')
+      doc.setTextColor(68, 68, 68)
+      const noteContent = String(note.content || '').slice(0, 500)
+      const lines = doc.splitTextToSize(noteContent + (noteContent.length >= 500 ? '...' : ''), contentWidth - 10)
+      doc.text(lines.slice(0, 8), margin + 5, y)
+      y += Math.min(lines.length, 8) * 5 + 10
+    }
+  }
+
+  // Study materials section
+  if (options.includeGenerated !== false && exportData.study_materials?.length) {
+    doc.addPage()
+    y = margin
+    addSectionHeader('Study Materials')
+
+    for (const material of exportData.study_materials) {
+      checkPageBreak(15)
+
+      doc.setFontSize(11)
+      doc.setFont('helvetica', 'bold')
+      doc.setTextColor(51, 51, 51)
+
+      const typeLabels: Record<string, string> = {
+        flashcards: 'Flashcards',
+        quiz: 'Quiz',
+        study_guide: 'Study Guide',
+        faq: 'FAQ',
+        mind_map: 'Mind Map',
+      }
+      doc.text(typeLabels[material.type] || material.type, margin + 5, y)
+      y += 6
+
+      doc.setFontSize(9)
+      doc.setTextColor(102, 102, 102)
+      doc.text(`Created: ${new Date(material.created_at).toLocaleDateString()}`, margin + 5, y)
+      y += 10
+    }
+  }
+
+  // Research reports section
+  if (options.includeGenerated !== false && exportData.research_tasks?.length) {
+    doc.addPage()
+    y = margin
+    addSectionHeader('Research Reports')
+
+    for (const research of exportData.research_tasks) {
+      checkPageBreak(30)
+
+      doc.setFontSize(12)
+      doc.setFont('helvetica', 'bold')
+      doc.setTextColor(51, 51, 51)
+      const queryLines = doc.splitTextToSize(research.query, contentWidth - 10)
+      doc.text(queryLines, margin + 5, y)
+      y += queryLines.length * 5 + 3
+
+      doc.setFontSize(9)
+      doc.setTextColor(102, 102, 102)
+      doc.text(`Status: ${research.status}`, margin + 5, y)
+      y += 6
+
+      if (research.report_content) {
+        doc.setFontSize(10)
+        doc.setFont('helvetica', 'normal')
+        doc.setTextColor(68, 68, 68)
+        const reportPreview = String(research.report_content).slice(0, 400)
+        const lines = doc.splitTextToSize(reportPreview + (reportPreview.length >= 400 ? '...' : ''), contentWidth - 10)
+        doc.text(lines.slice(0, 6), margin + 5, y)
+        y += Math.min(lines.length, 6) * 5
+      }
+
+      y += 10
+    }
+  }
+
+  // Footer with page numbers
+  const pageCount = doc.getNumberOfPages()
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i)
+    doc.setFontSize(9)
+    doc.setFont('helvetica', 'normal')
+    doc.setTextColor(150, 150, 150)
+    doc.text(`Page ${i} of ${pageCount}`, pageWidth / 2, pageHeight - 10, { align: 'center' })
+    doc.text('Generated by NotebookLM Reimagined', margin, pageHeight - 10)
+  }
+
+  // Generate filename and save
+  const safeName = exportData.notebook.name.replace(/[^a-zA-Z0-9 _-]/g, '_')
+  const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '')
+  doc.save(`notebook-export-${safeName}-${dateStr}.pdf`)
+}
+
+/**
+ * Export a notebook with the specified format
+ */
+export async function exportNotebook(
+  notebookId: string,
+  options: NotebookExportOptions,
+  authToken: string
+): Promise<void> {
+  switch (options.format) {
+    case 'zip':
+      return exportNotebookAsZip(notebookId, options, authToken)
+    case 'pdf':
+      return exportNotebookAsPDF(notebookId, options, authToken)
+    case 'json':
+      const data = await exportNotebookAsJson(notebookId, options, authToken)
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+      const safeName = data.notebook.name.replace(/[^a-zA-Z0-9 _-]/g, '_')
+      const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '')
+      downloadBlob(blob, `notebook-export-${safeName}-${dateStr}.json`)
+      return
+    default:
+      throw new Error(`Unsupported format: ${options.format}`)
+  }
 }

@@ -9,6 +9,7 @@ from app.models.schemas import (
 from app.services.auth import get_current_user
 from app.services.supabase_client import get_supabase_client
 from app.services.gemini import gemini_service
+from app.services.atlascloud_video import atlascloud_video_service
 
 router = APIRouter(prefix="/notebooks/{notebook_id}/video", tags=["video"])
 
@@ -54,24 +55,33 @@ async def get_sources_content(notebook_id: UUID, source_ids: Optional[List[UUID]
     return "\n\n".join(content_parts), sources
 
 
-# Style settings
+# Style settings for video generation
 STYLE_SETTINGS = {
     "documentary": {
         "name": "Documentary",
         "description": "Cinematic documentary style with narration",
-        "duration": (30, 60),
+        "duration": 10,  # seconds for Wan 2.5
+        "prompt_style": "cinematic documentary footage, professional cinematography, dramatic lighting, smooth camera movements, 4K quality",
+        "negative_prompt": "text, watermark, logo, low quality, blurry, distorted",
     },
     "explainer": {
         "name": "Explainer",
         "description": "Educational explainer with graphics",
-        "duration": (30, 90),
+        "duration": 5,
+        "prompt_style": "educational visualization, clean modern graphics, infographic style, smooth animations, professional presentation",
+        "negative_prompt": "text, watermark, logo, cluttered, messy, low quality",
     },
     "presentation": {
         "name": "Presentation",
         "description": "Business presentation style",
-        "duration": (60, 120),
+        "duration": 5,
+        "prompt_style": "professional business presentation, clean corporate aesthetic, modern office environment, polished visuals",
+        "negative_prompt": "text, watermark, logo, unprofessional, casual, low quality",
     },
 }
+
+# Cost per second for Wan 2.5
+VIDEO_COST_PER_SECOND = 0.02
 
 
 @router.post("/estimate", response_model=ApiResponse)
@@ -84,17 +94,19 @@ async def estimate_video_cost(
     await verify_notebook_access(notebook_id, user["id"])
 
     style_settings = STYLE_SETTINGS.get(video.style, STYLE_SETTINGS["explainer"])
-    min_dur, max_dur = style_settings["duration"]
-    avg_duration = (min_dur + max_dur) // 2
+    duration = style_settings["duration"]
 
-    # Veo costs approximately $0.10 per second
-    estimated_cost = avg_duration * 0.10
+    # Wan 2.5 costs approximately $0.02 per second + Gemini prompt generation
+    video_cost = duration * VIDEO_COST_PER_SECOND
+    prompt_cost = 0.01  # Approximate Gemini cost for prompt generation
+    estimated_cost = video_cost + prompt_cost
 
     estimate = {
-        "estimated_duration_seconds": avg_duration,
+        "estimated_duration_seconds": duration,
         "estimated_cost_usd": round(estimated_cost, 2),
         "style": video.style,
         "style_name": style_settings["name"],
+        "model": "alibaba/wan-2.5/text-to-video-fast",
     }
 
     return ApiResponse(data=estimate)
@@ -106,7 +118,7 @@ async def create_video(
     video: VideoCreate,
     user: dict = Depends(get_current_user),
 ):
-    """Start video overview generation."""
+    """Start video overview generation using AtlasCloud Wan 2.5."""
     await verify_notebook_access(notebook_id, user["id"])
     supabase = get_supabase_client()
 
@@ -115,6 +127,9 @@ async def create_video(
 
     if not content:
         raise HTTPException(status_code=400, detail="No source content available")
+
+    style_settings = STYLE_SETTINGS.get(video.style, STYLE_SETTINGS["explainer"])
+    duration = style_settings["duration"]
 
     # Create video record
     video_data = {
@@ -131,41 +146,66 @@ async def create_video(
         raise HTTPException(status_code=400, detail="Failed to create video job")
 
     video_id = result.data[0]["id"]
+    total_cost = 0.0
 
-    # Start processing (in production, this would be async with Veo)
     try:
         # Update status to processing
         supabase.table("video_overviews").update({
             "status": "processing",
-            "progress_percent": 10,
+            "progress_percent": 5,
         }).eq("id", video_id).execute()
 
-        # Generate script
-        script_result = await gemini_service.generate_video_script(
-            content=content[:100000],
-            style=video.style,
+        # Step 1: Generate video prompt from content using Gemini (cheaper model)
+        prompt_gen_result = await gemini_service.generate_content(
+            prompt=f"""Based on the following content, create a single concise video generation prompt (2-3 sentences max) that describes a compelling visual scene to represent the main theme or concept.
+
+The video should be {style_settings['name'].lower()} style: {style_settings['prompt_style']}.
+
+Content:
+{content[:10000]}
+
+Generate ONLY the video prompt, nothing else. Make it vivid and visually descriptive.""",
+            model_name="gemini-2.0-flash",
+            temperature=0.7,
         )
 
-        script = script_result["content"]
+        video_prompt = prompt_gen_result["content"].strip()
+        total_cost += prompt_gen_result["usage"]["cost_usd"]
 
-        # Update with script
+        # Update with generated prompt
         supabase.table("video_overviews").update({
-            "script": script,
-            "progress_percent": 50,
+            "script": f"Video Prompt: {video_prompt}\n\nStyle: {style_settings['name']}\nDuration: {duration} seconds",
+            "progress_percent": 15,
         }).eq("id", video_id).execute()
 
-        # In production, we would:
-        # 1. Call Veo API to generate video
-        # 2. Upload to Supabase Storage
-        # 3. Generate thumbnail
-        # 4. Update with video_file_path and duration
+        # Step 2: Generate video using AtlasCloud Wan 2.5
+        async def update_progress(progress):
+            # Map the 0-90 progress from AtlasCloud to 15-95 for our UI
+            ui_progress = 15 + int(progress * 0.8)
+            supabase.table("video_overviews").update({
+                "progress_percent": ui_progress,
+            }).eq("id", video_id).execute()
 
-        # For now, mark as complete with script only
+        video_result = await atlascloud_video_service.generate_and_wait(
+            prompt=video_prompt,
+            duration=duration,
+            size="1280*720",
+            negative_prompt=style_settings.get("negative_prompt"),
+            enable_prompt_expansion=True,
+            progress_callback=update_progress,
+        )
+
+        video_url = video_result["video_url"]
+        total_cost += video_result["cost_usd"]
+
+        # Update with completed video
         supabase.table("video_overviews").update({
             "status": "completed",
             "progress_percent": 100,
-            "model_used": "gemini-2.5-pro",
-            "cost_usd": script_result["usage"]["cost_usd"],
+            "video_file_path": video_url,  # Store the AtlasCloud URL directly
+            "duration_seconds": duration,
+            "model_used": "alibaba/wan-2.5/text-to-video-fast",
+            "cost_usd": total_cost,
             "completed_at": "now()",
         }).eq("id", video_id).execute()
 
@@ -173,6 +213,7 @@ async def create_video(
         supabase.table("video_overviews").update({
             "status": "failed",
             "error_message": str(e),
+            "cost_usd": total_cost,
         }).eq("id", video_id).execute()
 
     # Get updated record

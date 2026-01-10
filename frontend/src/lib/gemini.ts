@@ -392,6 +392,18 @@ export function isGeminiConfigured(): boolean {
   return !!apiKey
 }
 
+// Simple text generation
+export async function generateContent(
+  prompt: string,
+  modelName: string = 'gemini-2.0-flash'
+): Promise<{ text: string }> {
+  if (!genAI) throw new Error('Gemini API not configured')
+
+  const model = genAI.getGenerativeModel({ model: modelName })
+  const result = await model.generateContent(prompt)
+  return { text: result.response.text() }
+}
+
 // ============ STUDIO OUTPUT GENERATORS ============
 
 // Data table structure

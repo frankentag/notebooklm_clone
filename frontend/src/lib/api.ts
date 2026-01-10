@@ -90,10 +90,19 @@ export interface Note {
 
 // Helper to get auth token
 async function getAuthToken(): Promise<string | null> {
-  const { createClient } = await import('./supabase')
-  const supabase = createClient()
-  const { data: { session } } = await supabase.auth.getSession()
-  return session?.access_token || null
+  try {
+    const { createClient } = await import('./supabase')
+    const supabase = createClient()
+    const { data: { session }, error } = await supabase.auth.getSession()
+    if (error) {
+      console.warn('Failed to get auth session:', error)
+      return null
+    }
+    return session?.access_token || null
+  } catch (e) {
+    console.warn('Auth token retrieval failed:', e)
+    return null
+  }
 }
 
 // Fetch wrapper with auth
@@ -109,62 +118,79 @@ async function fetchWithAuth(endpoint: string, options: RequestInit = {}) {
     (headers as Record<string, string>)['Authorization'] = `Bearer ${token}`
   }
 
-  const response = await fetch(`${API_BASE}${endpoint}`, {
-    ...options,
-    headers,
-  })
+  try {
+    const response = await fetch(`${API_BASE}${endpoint}`, {
+      ...options,
+      headers,
+    })
 
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({ detail: 'Request failed' }))
-    throw new Error(error.detail || 'Request failed')
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'Request failed' }))
+      throw new Error(error.detail || 'Request failed')
+    }
+
+    return response.json()
+  } catch (e) {
+    if (e instanceof TypeError && e.message === 'Failed to fetch') {
+      throw new Error('Network error - please check your connection and try again')
+    }
+    throw e
   }
+}
 
-  return response.json()
+// Notebooks API
+export const notebooksApi = {
+  async updateSettings(notebookId: string, settings: Record<string, unknown>): Promise<ApiResponse<unknown>> {
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ settings }),
+    })
+  },
 }
 
 // Chat API
 export const chatApi = {
   async sendMessage(notebookId: string, request: ChatRequest): Promise<ApiResponse<ChatResponse>> {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/chat`, {
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/chat`, {
       method: 'POST',
       body: JSON.stringify(request),
     })
   },
 
   async getSessions(notebookId: string) {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/chat/sessions`)
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/chat/sessions`)
   },
 
   async getSession(notebookId: string, sessionId: string) {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/chat/sessions/${sessionId}`)
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/chat/sessions/${sessionId}`)
   },
 }
 
 // Study Materials API
 export const studyApi = {
   async generateFlashcards(notebookId: string, sourceIds?: string[], count = 10): Promise<ApiResponse<{ flashcards: Flashcard[] }>> {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/flashcards`, {
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/flashcards`, {
       method: 'POST',
       body: JSON.stringify({ source_ids: sourceIds, count }),
     })
   },
 
   async generateQuiz(notebookId: string, sourceIds?: string[], questionCount = 10): Promise<ApiResponse<{ questions: QuizQuestion[] }>> {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/quiz`, {
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/quiz`, {
       method: 'POST',
       body: JSON.stringify({ source_ids: sourceIds, question_count: questionCount }),
     })
   },
 
   async generateStudyGuide(notebookId: string, sourceIds?: string[]): Promise<ApiResponse<StudyGuide>> {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/study-guide`, {
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/study-guide`, {
       method: 'POST',
       body: JSON.stringify({ source_ids: sourceIds }),
     })
   },
 
   async generateFaq(notebookId: string, sourceIds?: string[], count = 10): Promise<ApiResponse<{ faqs: FAQ[] }>> {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/faq`, {
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/faq`, {
       method: 'POST',
       body: JSON.stringify({ source_ids: sourceIds, count }),
     })
@@ -174,29 +200,29 @@ export const studyApi = {
 // Audio API
 export const audioApi = {
   async estimate(notebookId: string, format: string, sourceIds?: string[]) {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/audio/estimate`, {
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/audio/estimate`, {
       method: 'POST',
       body: JSON.stringify({ format, source_ids: sourceIds }),
     })
   },
 
   async generate(notebookId: string, format: string, sourceIds?: string[], customInstructions?: string): Promise<ApiResponse<AudioOverview>> {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/audio`, {
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/audio`, {
       method: 'POST',
       body: JSON.stringify({ format, source_ids: sourceIds, custom_instructions: customInstructions }),
     })
   },
 
   async list(notebookId: string): Promise<ApiResponse<AudioOverview[]>> {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/audio`)
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/audio`)
   },
 
   async get(notebookId: string, audioId: string): Promise<ApiResponse<AudioOverview>> {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/audio/${audioId}`)
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/audio/${audioId}`)
   },
 
   async delete(notebookId: string, audioId: string) {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/audio/${audioId}`, {
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/audio/${audioId}`, {
       method: 'DELETE',
     })
   },
@@ -205,35 +231,35 @@ export const audioApi = {
 // Notes API
 export const notesApi = {
   async create(notebookId: string, title: string, content: string, tags?: string[]): Promise<ApiResponse<Note>> {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/notes`, {
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/notes`, {
       method: 'POST',
       body: JSON.stringify({ title, content, tags }),
     })
   },
 
   async list(notebookId: string): Promise<ApiResponse<Note[]>> {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/notes`)
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/notes`)
   },
 
   async get(notebookId: string, noteId: string): Promise<ApiResponse<Note>> {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/notes/${noteId}`)
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/notes/${noteId}`)
   },
 
   async update(notebookId: string, noteId: string, data: Partial<Note>): Promise<ApiResponse<Note>> {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/notes/${noteId}`, {
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/notes/${noteId}`, {
       method: 'PATCH',
       body: JSON.stringify(data),
     })
   },
 
   async delete(notebookId: string, noteId: string) {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/notes/${noteId}`, {
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/notes/${noteId}`, {
       method: 'DELETE',
     })
   },
 
   async saveResponse(notebookId: string, messageId: string): Promise<ApiResponse<Note>> {
-    return fetchWithAuth(`/api/notebooks/${notebookId}/notes/save-response`, {
+    return fetchWithAuth(`/api/v1/notebooks/${notebookId}/notes/save-response`, {
       method: 'POST',
       body: JSON.stringify({ message_id: messageId }),
     })

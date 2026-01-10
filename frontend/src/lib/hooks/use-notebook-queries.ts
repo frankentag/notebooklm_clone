@@ -22,12 +22,24 @@ export const notebookKeys = {
 }
 
 // Helper to get auth headers
-async function getAuthHeaders() {
+async function getAuthHeaders(): Promise<HeadersInit> {
   const supabase = createClient()
-  const { data: { session } } = await supabase.auth.getSession()
-  return {
+  const baseHeaders: Record<string, string> = {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${session?.access_token}`,
+  }
+  try {
+    const { data: { session }, error } = await supabase.auth.getSession()
+    if (error || !session?.access_token) {
+      console.warn('No auth session available')
+      return baseHeaders
+    }
+    return {
+      ...baseHeaders,
+      'Authorization': `Bearer ${session.access_token}`,
+    }
+  } catch (e) {
+    console.warn('Failed to get auth session:', e)
+    return baseHeaders
   }
 }
 
@@ -141,8 +153,9 @@ export function useChatSessions(notebookId: string) {
     queryFn: async () => {
       const headers = await getAuthHeaders()
       const response = await fetch(`/api/notebooks/${notebookId}/chat/sessions`, { headers })
+      if (!response.ok) return []
       const result = await response.json()
-      return result.data as ChatSession[] || []
+      return (result.data ?? []) as ChatSession[]
     },
     staleTime: 30 * 1000,
   })
@@ -155,8 +168,9 @@ export function useChatSession(notebookId: string, sessionId: string | null) {
       if (!sessionId) return { messages: [] }
       const headers = await getAuthHeaders()
       const response = await fetch(`/api/notebooks/${notebookId}/chat/sessions/${sessionId}`, { headers })
+      if (!response.ok) return { messages: [] }
       const result = await response.json()
-      return result.data as { messages: ChatMessage[] }
+      return (result.data ?? { messages: [] }) as { messages: ChatMessage[] }
     },
     enabled: !!sessionId,
     staleTime: 30 * 1000,
@@ -206,8 +220,9 @@ export function useGeneratedAudio(notebookId: string) {
     queryFn: async () => {
       const headers = await getAuthHeaders()
       const response = await fetch(`/api/notebooks/${notebookId}/audio`, { headers })
+      if (!response.ok) return null
       const result = await response.json()
-      return result.data?.[0] as GeneratedAudio | null
+      return (result.data?.[0] ?? null) as GeneratedAudio | null
     },
     staleTime: 60 * 1000, // 1 minute
   })
@@ -219,8 +234,15 @@ export function useGeneratedVideo(notebookId: string) {
     queryFn: async () => {
       const headers = await getAuthHeaders()
       const response = await fetch(`/api/notebooks/${notebookId}/video`, { headers })
+      if (!response.ok) return null
       const result = await response.json()
-      return result.data?.[0] as GeneratedVideo | null
+      const rawVideo = result.data?.[0]
+      if (!rawVideo) return null
+      // Map database column video_file_path to video_url for frontend
+      return {
+        ...rawVideo,
+        video_url: rawVideo.video_file_path || rawVideo.video_url,
+      } as GeneratedVideo
     },
     staleTime: 60 * 1000,
   })
@@ -232,8 +254,9 @@ export function useGeneratedResearch(notebookId: string) {
     queryFn: async () => {
       const headers = await getAuthHeaders()
       const response = await fetch(`/api/notebooks/${notebookId}/research`, { headers })
+      if (!response.ok) return null
       const result = await response.json()
-      return result.data?.[0] as GeneratedResearch | null
+      return (result.data?.[0] ?? null) as GeneratedResearch | null
     },
     staleTime: 60 * 1000,
   })
@@ -266,6 +289,7 @@ export function useStudyMaterials(notebookId: string, sources: { id: string; nam
     queryFn: async () => {
       const headers = await getAuthHeaders()
       const response = await fetch(`/api/notebooks/${notebookId}/study`, { headers })
+      if (!response.ok) return { materials: [], byType: {} }
       const result = await response.json()
 
       if (!result.data || !Array.isArray(result.data)) return { materials: [], byType: {} }
@@ -314,6 +338,7 @@ export function useCreativeOutputs(notebookId: string) {
     queryFn: async () => {
       const headers = await getAuthHeaders()
       const response = await fetch(`/api/notebooks/${notebookId}/studio`, { headers })
+      if (!response.ok) return { outputs: [], byType: {} }
       const result = await response.json()
 
       if (!result.data || !Array.isArray(result.data)) return { outputs: [], byType: {} }

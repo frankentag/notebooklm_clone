@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { createClient, Notebook, Source, ChatMessage } from '@/lib/supabase'
-import { chatApi } from '@/lib/api'
+import { chatApi, notebooksApi } from '@/lib/api'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -28,7 +28,7 @@ import {
   ArrowLeft, Loader2, Sparkles, X, RotateCcw,
   BookOpen, ListChecks, FileText, HelpCircle, Mic, Video, Search, Share2,
   Maximize2, Minimize2, Table, FileSpreadsheet, Presentation, Image as ImageIcon,
-  History
+  History, Settings
 } from 'lucide-react'
 // Toast notifications removed per user request
 // import { toast } from 'sonner'
@@ -37,8 +37,9 @@ import { User } from '@supabase/supabase-js'
 import { ThreePanelLayout } from '@/components/panels/three-panel-layout'
 import { SourcesPanel } from '@/components/sources/sources-panel'
 import { ChatPanel } from '@/components/chat/chat-panel'
-import { StudioPanel } from '@/components/studio/studio-panel'
+import { StudioPanel, ExportOptionsState } from '@/components/studio/studio-panel'
 import type { GenerationConfig } from '@/components/studio/generation-config-dialog'
+import { exportNotebook } from '@/lib/export-utils'
 import {
   useNotebook,
   useSources,
@@ -64,6 +65,9 @@ import { AudioPlayer } from '@/components/studio/audio-player'
 import { VideoPlayer } from '@/components/studio/video-player'
 import { ResearchReport } from '@/components/studio/research-report'
 import { InfographicViewer } from '@/components/studio/infographic-viewer'
+
+// Notebook settings
+import { NotebookSettingsDialog, NotebookSettings } from '@/components/notebook/notebook-settings'
 
 interface LocalNote {
   id: string
@@ -120,6 +124,10 @@ export default function NotebookPage() {
   const [noteContent, setNoteContent] = useState('')
   const [savingNote, setSavingNote] = useState(false)
 
+  // Settings state
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [notebookSettings, setNotebookSettings] = useState<NotebookSettings | null>(null)
+
   // Audio state
   const [audioFormat, setAudioFormat] = useState('deep_dive')
   const [audioInstructions, setAudioInstructions] = useState('')
@@ -133,6 +141,9 @@ export default function NotebookPage() {
   const [researchQuery, setResearchQuery] = useState('')
   const [researchMode, setResearchMode] = useState('fast')
   const [researching, setResearching] = useState(false)
+
+  // Export state
+  const [exportingNotebook, setExportingNotebook] = useState(false)
 
   // Consolidated generating states - single object to reduce re-renders
   const [generating, setGenerating] = useState({
@@ -294,7 +305,7 @@ export default function NotebookPage() {
   const deleteChatSession = async (deleteSessionId: string) => {
     try {
       const { data: { session } } = await supabase.auth.getSession()
-      const response = await fetch(`/api/notebooks/${notebookId}/chat/sessions?session_id=${deleteSessionId}`, {
+      const response = await fetch(`/api/notebooks/${notebookId}/chat/sessions/${deleteSessionId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${session?.access_token}`,
@@ -311,7 +322,28 @@ export default function NotebookPage() {
       }
     } catch (error) {
       console.error('Failed to delete chat session:', error)
-      
+
+    }
+  }
+
+  // Rename a chat session
+  const renameChatSession = async (renameSessionId: string, newTitle: string) => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      const response = await fetch(`/api/notebooks/${notebookId}/chat/sessions/${renameSessionId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session?.access_token}`,
+        },
+        body: JSON.stringify({ title: newTitle }),
+      })
+      if (response.ok) {
+        // Invalidate cache to refresh the list
+        invalidate.invalidateChatSessions(notebookId)
+      }
+    } catch (error) {
+      console.error('Failed to rename chat session:', error)
     }
   }
 
@@ -498,6 +530,25 @@ export default function NotebookPage() {
       router.push('/')
     }
   }, [notebook, notebookLoading, router])
+
+  // Load notebook settings when notebook data is available
+  useEffect(() => {
+    if (notebook?.settings) {
+      setNotebookSettings(notebook.settings as unknown as NotebookSettings)
+    }
+  }, [notebook])
+
+  // Save notebook settings
+  const saveNotebookSettings = async (newSettings: NotebookSettings) => {
+    try {
+      await notebooksApi.updateSettings(notebookId, newSettings as unknown as Record<string, unknown>)
+      setNotebookSettings(newSettings)
+      invalidate.invalidateAll(notebookId)
+    } catch (error) {
+      console.error('Failed to save notebook settings:', error)
+      throw error
+    }
+  }
 
   // Source handlers
   const handleAddSource = async (type: string, data: { input: string; name?: string; file?: File }) => {
@@ -792,7 +843,11 @@ export default function NotebookPage() {
       if (result.error) {
         console.error('Video generation error:', result.error)
       } else if (result.data) {
-        setLocalGeneratedVideo(result.data)
+        // Map video_file_path to video_url for frontend components
+        setLocalGeneratedVideo({
+          ...result.data,
+          video_url: result.data.video_file_path || result.data.video_url,
+        })
         invalidate.invalidateVideo(notebookId)
       }
     } catch (error) {
@@ -840,6 +895,30 @@ export default function NotebookPage() {
       alert('Research failed. Please try again.')
     }
     setResearching(false)
+  }
+
+  // Export notebook handler
+  const handleExportNotebook = async (format: 'zip' | 'pdf' | 'json', options: ExportOptionsState) => {
+    setExportingNotebook(true)
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session?.access_token) {
+        throw new Error('Not authenticated')
+      }
+
+      await exportNotebook(notebookId, {
+        format,
+        includeSources: options.includeSources,
+        includeChats: options.includeChats,
+        includeNotes: options.includeNotes,
+        includeGenerated: options.includeGenerated,
+      }, session.access_token)
+    } catch (error) {
+      console.error('Export failed:', error)
+      alert('Export failed. Please try again.')
+    } finally {
+      setExportingNotebook(false)
+    }
   }
 
   // Study material generation handlers
@@ -1408,6 +1487,20 @@ export default function NotebookPage() {
               {selectedSources.size} selected
             </Badge>
           )}
+          {notebookSettings?.persona?.enabled && (
+            <Badge className="bg-purple-500/20 text-purple-400 border-0 text-xs">
+              {notebookSettings.persona.name || 'Custom Persona'}
+            </Badge>
+          )}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setSettingsOpen(true)}
+            className="h-9 px-3 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] gap-2"
+          >
+            <Settings className="h-4 w-4" />
+            <span className="hidden sm:inline">Settings</span>
+          </Button>
           <Button
             variant="ghost"
             size="sm"
@@ -1452,7 +1545,9 @@ export default function NotebookPage() {
               onLoadSession={loadChatSession}
               onNewChat={startNewChat}
               onDeleteSession={deleteChatSession}
+              onRenameSession={renameChatSession}
               loadingSessions={loadingSessions}
+              notebookId={notebookId}
             />
           }
           rightPanel={
@@ -1519,6 +1614,8 @@ export default function NotebookPage() {
               onOpenAudio={() => { setActiveStudyType('audio'); setStudySheetOpen(true) }}
               onOpenVideo={() => { setActiveStudyType('video'); setStudySheetOpen(true) }}
               onOpenResearch={() => { setActiveStudyType('research'); setStudySheetOpen(true) }}
+              onExportNotebook={handleExportNotebook}
+              exportingNotebook={exportingNotebook}
             />
           }
         />
@@ -2063,6 +2160,15 @@ export default function NotebookPage() {
         type="file"
         accept=".pdf,.docx,.txt,.md"
         className="hidden"
+      />
+
+      {/* Notebook Settings Dialog */}
+      <NotebookSettingsDialog
+        open={settingsOpen}
+        onOpenChange={setSettingsOpen}
+        settings={notebookSettings}
+        onSave={saveNotebookSettings}
+        notebookName={notebook?.name || 'Notebook'}
       />
     </div>
   )

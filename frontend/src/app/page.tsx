@@ -41,28 +41,39 @@ export default function Dashboard() {
 
   useEffect(() => {
     const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) {
+      try {
+        const { data: { user }, error } = await supabase.auth.getUser()
+        if (error || !user) {
+          router.push('/auth/login')
+          return
+        }
+        setUser(user)
+        fetchNotebooks()
+      } catch (e) {
+        console.error('Auth check failed:', e)
         router.push('/auth/login')
-        return
       }
-      setUser(user)
-      fetchNotebooks()
     }
     checkUser()
   }, [])
 
   const fetchNotebooks = async () => {
     setLoading(true)
-    const { data, error } = await supabase
-      .from('notebooks')
-      .select('*')
-      .order('created_at', { ascending: false })
+    try {
+      const { data, error } = await supabase
+        .from('notebooks')
+        .select('*')
+        .order('created_at', { ascending: false })
 
-    if (error) {
-      toast.error('Failed to load notebooks')
-    } else {
-      setNotebooks(data || [])
+      if (error) {
+        console.error('Failed to load notebooks:', error)
+        toast.error('Failed to load notebooks')
+      } else {
+        setNotebooks(data || [])
+      }
+    } catch (e) {
+      console.error('Network error loading notebooks:', e)
+      toast.error('Network error - please check your connection')
     }
     setLoading(false)
   }

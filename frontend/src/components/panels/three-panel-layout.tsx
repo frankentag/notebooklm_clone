@@ -25,11 +25,11 @@ export function ThreePanelLayout({
   rightPanel,
   leftPanelTitle = 'Sources',
   rightPanelTitle = 'Studio',
-  defaultLeftWidth = 280,
+  defaultLeftWidth = 320,
   defaultRightWidth = 340,
-  minLeftWidth = 200,
+  minLeftWidth = 240,
   minRightWidth = 280,
-  maxLeftWidth = 400,
+  maxLeftWidth = 500,
   maxRightWidth = 480,
 }: ThreePanelLayoutProps) {
   const [leftWidth, setLeftWidth] = useState(defaultLeftWidth)
@@ -129,7 +129,7 @@ export function ThreePanelLayout({
             </div>
 
             {/* Panel Content */}
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 overflow-y-auto overflow-x-visible">
               {leftPanel}
             </div>
           </motion.div>

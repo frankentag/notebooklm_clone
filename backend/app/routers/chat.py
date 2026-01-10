@@ -14,16 +14,17 @@ from app.models.schemas import (
 from app.services.auth import get_current_user
 from app.services.supabase_client import get_supabase_client
 from app.services.gemini import gemini_service
+from app.services.persona_utils import build_persona_instructions
 
 router = APIRouter(prefix="/notebooks/{notebook_id}/chat", tags=["chat"])
 
 
 async def verify_notebook_access(notebook_id: UUID, user_id: str):
-    """Verify user has access to the notebook."""
+    """Verify user has access to the notebook and return notebook data with settings."""
     supabase = get_supabase_client()
     result = (
         supabase.table("notebooks")
-        .select("id")
+        .select("id, settings")
         .eq("id", str(notebook_id))
         .eq("user_id", user_id)
         .single()
@@ -75,8 +76,12 @@ async def send_message(
     user: dict = Depends(get_current_user),
 ):
     """Send a chat message and get a response."""
-    await verify_notebook_access(notebook_id, user["id"])
+    notebook = await verify_notebook_access(notebook_id, user["id"])
     supabase = get_supabase_client()
+
+    # Get persona instructions from notebook settings
+    settings = notebook.get("settings") or {}
+    persona_instructions = build_persona_instructions(settings)
 
     # Get or create session
     session_id = chat.session_id
@@ -98,18 +103,20 @@ async def send_message(
         "source_ids_used": [str(sid) for sid in (chat.source_ids or [])],
     }).execute()
 
-    # Generate response with context
+    # Generate response with context (include persona instructions)
     if context:
         result = await gemini_service.generate_with_context(
             message=chat.message,
             context=context,
             model_name=chat.model,
             source_names=source_names,
+            persona_instructions=persona_instructions,
         )
     else:
         result = await gemini_service.generate_content(
             prompt=chat.message,
             model_name=chat.model,
+            system_instruction=persona_instructions if persona_instructions else None,
         )
 
     # Parse citations from response (simple bracket notation)
@@ -240,3 +247,28 @@ async def delete_session(
         raise HTTPException(status_code=404, detail="Session not found")
 
     return ApiResponse(data={"deleted": True, "id": str(session_id)})
+
+
+@router.patch("/sessions/{session_id}", response_model=ApiResponse)
+async def rename_session(
+    notebook_id: UUID,
+    session_id: UUID,
+    title: str,
+    user: dict = Depends(get_current_user),
+):
+    """Rename a chat session."""
+    await verify_notebook_access(notebook_id, user["id"])
+    supabase = get_supabase_client()
+
+    result = (
+        supabase.table("chat_sessions")
+        .update({"title": title})
+        .eq("id", str(session_id))
+        .eq("notebook_id", str(notebook_id))
+        .execute()
+    )
+
+    if not result.data:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    return ApiResponse(data=result.data[0])

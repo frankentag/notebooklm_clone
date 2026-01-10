@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { generateVideoScript, generateVideo, checkVideoOperation, isGeminiConfigured } from '@/lib/gemini'
+import { isGeminiConfigured, generateContent } from '@/lib/gemini'
+import { generateVideoAndWait, VIDEO_STYLES, isAtlasCloudConfigured, VideoStyle, VIDEO_COST_PER_SECOND } from '@/lib/atlascloud'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -40,20 +41,6 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // Check for operation_id query param to check video generation status
-    const { searchParams } = new URL(request.url)
-    const operationId = searchParams.get('operation_id')
-
-    if (operationId) {
-      try {
-        const status = await checkVideoOperation(operationId)
-        return NextResponse.json({ data: status })
-      } catch (error) {
-        console.error('Operation check error:', error)
-        return NextResponse.json({ error: 'Failed to check operation status' }, { status: 500 })
-      }
-    }
-
     const { data: videos } = await supabase
       .from('video_overviews')
       .select('*')
@@ -82,10 +69,16 @@ export async function POST(
     const body = await request.json()
     const { style, source_ids } = body
 
-    // Check if Gemini is configured
+    // Check if Gemini and AtlasCloud are configured
     if (!isGeminiConfigured()) {
       return NextResponse.json({
         error: 'Gemini API not configured. Please set GOOGLE_API_KEY in your environment variables.'
+      }, { status: 503 })
+    }
+
+    if (!isAtlasCloudConfigured()) {
+      return NextResponse.json({
+        error: 'AtlasCloud API not configured. Please set ATLASCLOUD_API_KEY in your environment variables.'
       }, { status: 503 })
     }
 
@@ -127,86 +120,81 @@ export async function POST(
     }).join('\n\n---\n\n')
 
     // Limit content to prevent token overflow
-    const truncatedContent = sourceContent.slice(0, 100000)
+    const truncatedContent = sourceContent.slice(0, 10000)
 
-    // Generate real script using Gemini
-    const validStyle = (style as 'documentary' | 'explainer' | 'presentation') || 'explainer'
+    // Get style settings
+    const validStyle = (style as VideoStyle) || 'explainer'
+    const styleConfig = VIDEO_STYLES[validStyle] || VIDEO_STYLES.explainer
+
+    let totalCost = 0
 
     try {
-      // Step 1: Generate the video script
-      const script = await generateVideoScript(truncatedContent, validStyle)
+      // Step 1: Generate a video prompt from the content using Gemini
+      console.log('[VIDEO] Generating video prompt with Gemini...')
 
-      // Step 2: Create a video generation prompt from the script
-      // Extract key visual concepts for Veo
-      const videoPrompt = `Create a professional ${validStyle} style video visualization.
-The video should be visually engaging with smooth transitions, professional graphics, and a modern aesthetic.
-Key themes: ${sourceContent.slice(0, 500)}
-Style: Clean, modern, educational with subtle motion graphics and text overlays.`
+      const promptResult = await generateContent(
+        `Based on the following content, create a single concise video generation prompt (2-3 sentences max) that describes a compelling visual scene to represent the main theme or concept.
 
-      // Step 3: Attempt video generation with Veo
-      let videoUrl: string | undefined
-      let operationName: string | undefined
-      let durationSeconds = 8
+The video should be ${styleConfig.name.toLowerCase()} style: ${styleConfig.promptStyle}.
 
+Content:
+${truncatedContent}
+
+Generate ONLY the video prompt, nothing else. Make it vivid and visually descriptive.`,
+        'gemini-2.0-flash'
+      )
+
+      const videoPrompt = promptResult.text.trim()
+      totalCost += 0.001 // Approximate cost for prompt generation
+
+      console.log('[VIDEO] Generated prompt:', videoPrompt)
+
+      // Step 2: Generate video using AtlasCloud Wan 2.5
+      console.log('[VIDEO] Starting AtlasCloud video generation...')
+
+      const videoResult = await generateVideoAndWait({
+        prompt: videoPrompt,
+        duration: styleConfig.duration,
+        size: '1280*720',
+        negativePrompt: styleConfig.negativePrompt,
+        enablePromptExpansion: true,
+      })
+
+      console.log('[VIDEO] Video generated:', videoResult.videoUrl)
+      totalCost += videoResult.cost
+
+      // Download video and upload to Supabase Storage for CORS-friendly playback
+      let finalVideoUrl = videoResult.videoUrl
       try {
-        const videoResult = await generateVideo(videoPrompt, 8)
-
-        if ('operationName' in videoResult) {
-          // Video generation is async - store operation name
-          operationName = videoResult.operationName
-
-          // Poll for completion (with timeout)
-          let attempts = 0
-          const maxAttempts = 30 // 5 minutes max (10s intervals)
-
-          while (attempts < maxAttempts) {
-            await new Promise(resolve => setTimeout(resolve, 10000)) // Wait 10s
-            attempts++
-
-            try {
-              const status = await checkVideoOperation(operationName)
-              if (status.done) {
-                if (status.videoUrl) {
-                  videoUrl = status.videoUrl
-                }
-                break
-              }
-            } catch {
-              // Continue polling
-            }
-          }
-        } else if ('videoData' in videoResult) {
-          // Immediate result - upload to storage
-          const videoBuffer = Buffer.from(videoResult.videoData, 'base64')
-          const videoFileName = `video_${notebookId}_${Date.now()}.mp4`
+        console.log('[VIDEO] Downloading video from AtlasCloud...')
+        const videoResponse = await fetch(videoResult.videoUrl)
+        if (videoResponse.ok) {
+          const videoBuffer = await videoResponse.arrayBuffer()
+          const videoFileName = `${notebookId}/${Date.now()}.mp4`
 
           const { error: uploadError } = await supabase.storage
-            .from('videos')
+            .from('video')
             .upload(videoFileName, videoBuffer, {
-              contentType: videoResult.mimeType,
+              contentType: 'video/mp4',
               upsert: true
             })
 
           if (!uploadError) {
             const { data: urlData } = supabase.storage
-              .from('videos')
+              .from('video')
               .getPublicUrl(videoFileName)
-
-            videoUrl = urlData.publicUrl
+            finalVideoUrl = urlData.publicUrl
+            console.log('[VIDEO] Uploaded to Supabase:', finalVideoUrl)
+          } else {
+            console.error('[VIDEO] Upload error:', uploadError)
           }
         }
-      } catch (videoError) {
-        console.error('Video generation error (continuing with script only):', videoError)
-        // Continue without video - we still have the script
+      } catch (downloadError) {
+        console.error('[VIDEO] Download/upload error:', downloadError)
+        // Fall back to original URL
       }
 
-      // Estimate duration based on word count if no video
-      if (!videoUrl) {
-        const wordCount = script.split(/\s+/).length
-        durationSeconds = Math.round((wordCount / 150) * 60)
-      }
-
-      // Create video record
+      // Create video record with actual video URL
       const { data: video, error } = await supabase
         .from('video_overviews')
         .insert({
@@ -215,11 +203,11 @@ Style: Clean, modern, educational with subtle motion graphics and text overlays.
           status: 'completed',
           progress_percent: 100,
           source_ids: sources.map(s => s.id),
-          script,
-          video_url: videoUrl,
-          duration_seconds: durationSeconds,
-          model_used: videoUrl ? 'veo-2.0' : 'gemini-1.5-pro',
-          cost_usd: videoUrl ? 0.05 : 0.005,
+          script: `Video Prompt: ${videoPrompt}\n\nStyle: ${styleConfig.name}\nDuration: ${styleConfig.duration} seconds`,
+          video_file_path: finalVideoUrl,  // Now using Supabase URL
+          duration_seconds: videoResult.duration,
+          model_used: 'alibaba/wan-2.5/text-to-video-fast',
+          cost_usd: totalCost,
           completed_at: new Date().toISOString(),
         })
         .select()
@@ -232,9 +220,9 @@ Style: Clean, modern, educational with subtle motion graphics and text overlays.
 
       return NextResponse.json({ data: video })
     } catch (error) {
-      console.error('Script generation error:', error)
+      console.error('Video generation error:', error)
       return NextResponse.json({
-        error: 'Failed to generate video. Please try again.'
+        error: `Failed to generate video: ${error instanceof Error ? error.message : 'Unknown error'}`
       }, { status: 500 })
     }
   } catch (error) {

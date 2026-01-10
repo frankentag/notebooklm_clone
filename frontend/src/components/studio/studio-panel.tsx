@@ -29,7 +29,12 @@ import {
   Cards,
   TreeStructure,
   ChatCircleText,
-  Sparkle
+  Sparkle,
+  Export,
+  FilePdf,
+  FileZip,
+  FileJs,
+  CheckSquare
 } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -132,6 +137,17 @@ interface StudioPanelProps {
   onOpenAudio?: () => void
   onOpenVideo?: () => void
   onOpenResearch?: () => void
+  // Export
+  onExportNotebook?: (format: 'zip' | 'pdf' | 'json', options: ExportOptionsState) => void
+  exportingNotebook?: boolean
+}
+
+// Export options state type
+export interface ExportOptionsState {
+  includeSources: boolean
+  includeChats: boolean
+  includeNotes: boolean
+  includeGenerated: boolean
 }
 
 export function StudioPanel({
@@ -179,10 +195,18 @@ export function StudioPanel({
   onOpenAudio,
   onOpenVideo,
   onOpenResearch,
+  onExportNotebook,
+  exportingNotebook = false,
 }: StudioPanelProps) {
   const [expandedSection, setExpandedSection] = useState<string | null>('audio')
   const [configDialogOpen, setConfigDialogOpen] = useState(false)
   const [configDialogType, setConfigDialogType] = useState<GenerationType>('flashcards')
+  const [exportOptions, setExportOptions] = useState<ExportOptionsState>({
+    includeSources: true,
+    includeChats: true,
+    includeNotes: true,
+    includeGenerated: true,
+  })
 
   // Open config dialog for a specific type
   const openConfigDialog = (type: GenerationType) => {
@@ -325,7 +349,7 @@ export function StudioPanel({
         <StudioSection
           id="video"
           title="Video Overview"
-          subtitle="Visual explainer video"
+          subtitle="AI-generated video clip"
           icon={<VideoCamera className="h-5 w-5" weight="duotone" />}
           iconGradient="from-purple-500/20 to-pink-500/20"
           iconColor="text-purple-500"
@@ -340,12 +364,15 @@ export function StudioPanel({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-[var(--bg-secondary)] border-[rgba(255,255,255,0.1)]">
-                  <SelectItem value="explainer">Explainer</SelectItem>
-                  <SelectItem value="documentary">Documentary</SelectItem>
-                  <SelectItem value="presentation">Presentation</SelectItem>
+                  <SelectItem value="explainer">Explainer (5s)</SelectItem>
+                  <SelectItem value="documentary">Documentary (10s)</SelectItem>
+                  <SelectItem value="presentation">Presentation (5s)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
+            <p className="text-xs text-[var(--text-tertiary)]">
+              Generates an AI video clip using Wan 2.5. Estimated cost: ~$0.10-0.20
+            </p>
             <div className="flex gap-2">
               <Button
                 className="flex-1 rounded-lg bg-purple-500 hover:bg-purple-500/90 text-white"
@@ -357,7 +384,7 @@ export function StudioPanel({
                 ) : (
                   <VideoCamera className="h-4 w-4 mr-2" weight="duotone" />
                 )}
-                Generate
+                {generatingVideo ? 'Generating...' : 'Generate Video'}
               </Button>
               {hasGeneratedVideo && onOpenVideo && (
                 <Button
@@ -694,6 +721,97 @@ export function StudioPanel({
             )}
           </div>
         </StudioSection>
+
+        {/* Export Section */}
+        <StudioSection
+          id="export"
+          title="Export Notebook"
+          subtitle="Download all content"
+          icon={<Export className="h-5 w-5" weight="duotone" />}
+          iconGradient="from-sky-500/20 to-indigo-500/20"
+          iconColor="text-sky-500"
+          expanded={expandedSection === 'export'}
+          onToggle={() => toggleSection('export')}
+        >
+          <div className="space-y-4">
+            {/* Export Options */}
+            <div className="space-y-2">
+              <p className="text-xs font-medium text-[var(--text-tertiary)]">Include in export:</p>
+              <div className="grid grid-cols-2 gap-2">
+                <ExportOptionToggle
+                  label="Sources"
+                  checked={exportOptions.includeSources}
+                  onChange={(checked) => setExportOptions(prev => ({ ...prev, includeSources: checked }))}
+                />
+                <ExportOptionToggle
+                  label="Chats"
+                  checked={exportOptions.includeChats}
+                  onChange={(checked) => setExportOptions(prev => ({ ...prev, includeChats: checked }))}
+                />
+                <ExportOptionToggle
+                  label="Notes"
+                  checked={exportOptions.includeNotes}
+                  onChange={(checked) => setExportOptions(prev => ({ ...prev, includeNotes: checked }))}
+                />
+                <ExportOptionToggle
+                  label="Generated"
+                  checked={exportOptions.includeGenerated}
+                  onChange={(checked) => setExportOptions(prev => ({ ...prev, includeGenerated: checked }))}
+                />
+              </div>
+            </div>
+
+            {/* Export Format Buttons */}
+            <div className="space-y-2">
+              <p className="text-xs font-medium text-[var(--text-tertiary)]">Export as:</p>
+              <div className="grid grid-cols-3 gap-2">
+                <Button
+                  variant="outline"
+                  className="flex flex-col items-center gap-1.5 h-auto py-3 rounded-xl border-[rgba(255,255,255,0.1)] hover:bg-[var(--bg-tertiary)] hover:border-sky-500/50"
+                  onClick={() => onExportNotebook?.('zip', exportOptions)}
+                  disabled={exportingNotebook}
+                >
+                  {exportingNotebook ? (
+                    <SpinnerGap className="h-5 w-5 animate-spin text-[var(--text-tertiary)]" weight="bold" />
+                  ) : (
+                    <FileZip className="h-5 w-5 text-sky-500" weight="duotone" />
+                  )}
+                  <span className="text-xs font-medium text-[var(--text-primary)]">ZIP</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  className="flex flex-col items-center gap-1.5 h-auto py-3 rounded-xl border-[rgba(255,255,255,0.1)] hover:bg-[var(--bg-tertiary)] hover:border-red-500/50"
+                  onClick={() => onExportNotebook?.('pdf', exportOptions)}
+                  disabled={exportingNotebook}
+                >
+                  {exportingNotebook ? (
+                    <SpinnerGap className="h-5 w-5 animate-spin text-[var(--text-tertiary)]" weight="bold" />
+                  ) : (
+                    <FilePdf className="h-5 w-5 text-red-500" weight="duotone" />
+                  )}
+                  <span className="text-xs font-medium text-[var(--text-primary)]">PDF</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  className="flex flex-col items-center gap-1.5 h-auto py-3 rounded-xl border-[rgba(255,255,255,0.1)] hover:bg-[var(--bg-tertiary)] hover:border-yellow-500/50"
+                  onClick={() => onExportNotebook?.('json', exportOptions)}
+                  disabled={exportingNotebook}
+                >
+                  {exportingNotebook ? (
+                    <SpinnerGap className="h-5 w-5 animate-spin text-[var(--text-tertiary)]" weight="bold" />
+                  ) : (
+                    <FileJs className="h-5 w-5 text-yellow-500" weight="duotone" />
+                  )}
+                  <span className="text-xs font-medium text-[var(--text-primary)]">JSON</span>
+                </Button>
+              </div>
+            </div>
+
+            <p className="text-xs text-[var(--text-tertiary)] text-center">
+              ZIP includes all files. PDF is a summary document.
+            </p>
+          </div>
+        </StudioSection>
       </div>
 
       {/* Generation Config Dialog */}
@@ -826,6 +944,34 @@ function MaterialButton({
       {icon}
       <span className="text-[var(--text-primary)]">{label}</span>
       <CaretRight className="h-4 w-4 ml-auto text-[var(--text-tertiary)]" weight="bold" />
+    </button>
+  )
+}
+
+// Export Option Toggle
+function ExportOptionToggle({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string
+  checked: boolean
+  onChange: (checked: boolean) => void
+}) {
+  return (
+    <button
+      onClick={() => onChange(!checked)}
+      className={`flex items-center gap-2 px-3 py-2 rounded-lg border transition-colors ${
+        checked
+          ? 'border-sky-500/50 bg-sky-500/10 text-[var(--text-primary)]'
+          : 'border-[rgba(255,255,255,0.1)] text-[var(--text-tertiary)] hover:bg-[var(--bg-tertiary)]'
+      }`}
+    >
+      <CheckSquare
+        className={`h-4 w-4 ${checked ? 'text-sky-500' : 'text-[var(--text-tertiary)]'}`}
+        weight={checked ? 'fill' : 'regular'}
+      />
+      <span className="text-xs font-medium">{label}</span>
     </button>
   )
 }

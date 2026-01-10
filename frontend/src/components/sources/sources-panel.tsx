@@ -4,7 +4,7 @@ import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Plus, Upload, FileText, Youtube, Link as LinkIcon, Type,
-  CheckCircle, Clock, XCircle, Trash2, Eye, Loader2, X
+  CheckCircle, Clock, XCircle, Trash2, Eye, Loader2, X, MoreVertical
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -21,6 +21,12 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { Source } from '@/lib/supabase'
 
 interface SourcesPanelProps {
@@ -60,7 +66,22 @@ export function SourcesPanel({
   const [sourceName, setSourceName] = useState('')
   const [isAdding, setIsAdding] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
+  const [sourceToDelete, setSourceToDelete] = useState<Source | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const handleDeleteClick = (source: Source) => {
+    setSourceToDelete(source)
+    setDeleteConfirmOpen(true)
+  }
+
+  const confirmDelete = () => {
+    if (sourceToDelete) {
+      onDeleteSource(sourceToDelete.id)
+      setDeleteConfirmOpen(false)
+      setSourceToDelete(null)
+    }
+  }
 
   const getSourceIcon = (type: string) => {
     const color = SOURCE_COLORS[type as keyof typeof SOURCE_COLORS] || 'var(--text-tertiary)'
@@ -189,8 +210,8 @@ export function SourcesPanel({
       </div>
 
       {/* Sources List */}
-      <ScrollArea className="flex-1">
-        <div className="p-3">
+      <ScrollArea className="flex-1 overflow-x-visible">
+        <div className="p-3 overflow-visible">
           {sources.length === 0 ? (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -258,32 +279,43 @@ export function SourcesPanel({
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-1 shrink-0">
+                    <div className="flex items-center gap-1 shrink-0 min-w-[52px] justify-end">
                       {getStatusIcon(source.status)}
 
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          onViewSource(source)
-                        }}
-                      >
-                        <Eye className="h-3.5 w-3.5 text-[var(--text-secondary)]" />
-                      </Button>
-
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          onDeleteSource(source.id)
-                        }}
-                      >
-                        <Trash2 className="h-3.5 w-3.5 text-[var(--text-secondary)] hover:text-[var(--error)]" />
-                      </Button>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-7 w-7 text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <MoreVertical className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-40 bg-[var(--bg-secondary)] border-[rgba(255,255,255,0.1)]">
+                          <DropdownMenuItem
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              onViewSource(source)
+                            }}
+                            className="cursor-pointer text-[var(--text-primary)] focus:bg-[var(--bg-tertiary)]"
+                          >
+                            <Eye className="h-4 w-4 mr-2" />
+                            View
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              handleDeleteClick(source)
+                            }}
+                            className="cursor-pointer text-[var(--error)] focus:bg-[var(--error)]/10 focus:text-[var(--error)]"
+                          >
+                            <Trash2 className="h-4 w-4 mr-2" />
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </div>
                   </motion.div>
                 ))}
@@ -448,6 +480,44 @@ export function SourcesPanel({
               </Button>
             </DialogFooter>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
+        <DialogContent className="sm:max-w-md bg-[var(--bg-secondary)] border-[rgba(255,255,255,0.1)]">
+          <DialogHeader>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-xl bg-[var(--error)]/10 flex items-center justify-center">
+                <Trash2 className="h-5 w-5 text-[var(--error)]" />
+              </div>
+              <DialogTitle className="text-[var(--text-primary)]">Delete Source</DialogTitle>
+            </div>
+            <DialogDescription className="text-[var(--text-secondary)]">
+              Are you sure you want to delete{' '}
+              <span className="font-medium text-[var(--text-primary)]">
+                {sourceToDelete?.name}
+              </span>
+              ? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter className="mt-4 gap-2 sm:gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setDeleteConfirmOpen(false)}
+              className="flex-1 sm:flex-none rounded-xl border-[rgba(255,255,255,0.1)] text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)]"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={confirmDelete}
+              className="flex-1 sm:flex-none rounded-xl bg-[var(--error)] hover:bg-[var(--error)]/90 text-white"
+            >
+              <Trash2 className="h-4 w-4 mr-2" />
+              Delete
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
