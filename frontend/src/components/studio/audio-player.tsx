@@ -26,7 +26,7 @@ interface AudioPlayerProps {
   onClose?: () => void
 }
 
-export function AudioPlayer({ audio, isGenerating, onClose }: AudioPlayerProps) {
+export function AudioPlayer({ audio, isGenerating }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -53,12 +53,14 @@ export function AudioPlayer({ audio, isGenerating, onClose }: AudioPlayerProps) 
     }
   }, [volume, isMuted])
 
+  // Compute duration: use state for real audio, computed value for simulated
+  const fakeDuration = audio?.duration_seconds || 300 // 5 min default
+  const effectiveDuration = audio?.audio_url ? duration : fakeDuration
+
   // Simulated playback for when no actual audio file
   useEffect(() => {
     let interval: NodeJS.Timeout
     if (isPlaying && !audio?.audio_url) {
-      // Simulate playback progress
-      const fakeDuration = audio?.duration_seconds || 300 // 5 min default
       interval = setInterval(() => {
         setCurrentTime(prev => {
           if (prev >= fakeDuration) {
@@ -68,10 +70,9 @@ export function AudioPlayer({ audio, isGenerating, onClose }: AudioPlayerProps) 
           return prev + 1
         })
       }, 1000)
-      setDuration(fakeDuration)
     }
     return () => clearInterval(interval)
-  }, [isPlaying, audio])
+  }, [isPlaying, audio?.audio_url, fakeDuration])
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
@@ -124,7 +125,7 @@ export function AudioPlayer({ audio, isGenerating, onClose }: AudioPlayerProps) 
     )
   }
 
-  const progress = duration > 0 ? (currentTime / duration) * 100 : 0
+  const progress = effectiveDuration > 0 ? (currentTime / effectiveDuration) * 100 : 0
   const isDemoMode = !audio.audio_url
 
   return (
@@ -160,7 +161,7 @@ export function AudioPlayer({ audio, isGenerating, onClose }: AudioPlayerProps) 
         {/* Fake waveform visualization */}
         <div className="flex items-center justify-center gap-1 h-24">
           {Array.from({ length: 40 }).map((_, i) => {
-            const height = 20 + Math.sin(i * 0.5 + currentTime * 0.1) * 30 + Math.random() * 20
+            const height = 20 + Math.sin(i * 0.5 + currentTime * 0.1) * 30 + Math.sin(i * 1.7) * 10
             const isActive = (i / 40) * 100 <= progress
             return (
               <motion.div
@@ -181,7 +182,7 @@ export function AudioPlayer({ audio, isGenerating, onClose }: AudioPlayerProps) 
           max={100}
           step={0.1}
           onValueChange={(value) => {
-            const newTime = (value[0] / 100) * duration
+            const newTime = (value[0] / 100) * effectiveDuration
             setCurrentTime(newTime)
             // Seek in real audio if available
             if (audioRef.current && audio?.audio_url) {
@@ -192,7 +193,7 @@ export function AudioPlayer({ audio, isGenerating, onClose }: AudioPlayerProps) 
         />
         <div className="flex justify-between text-xs text-[var(--text-tertiary)] mt-2">
           <span>{formatTime(currentTime)}</span>
-          <span>{formatTime(duration)}</span>
+          <span>{formatTime(effectiveDuration)}</span>
         </div>
       </div>
 
@@ -228,7 +229,7 @@ export function AudioPlayer({ audio, isGenerating, onClose }: AudioPlayerProps) 
           variant="ghost"
           size="icon"
           onClick={() => {
-            const newTime = Math.min(duration, currentTime + 15)
+            const newTime = Math.min(effectiveDuration, currentTime + 15)
             setCurrentTime(newTime)
             if (audioRef.current && audio?.audio_url) {
               audioRef.current.currentTime = newTime
