@@ -1,0 +1,161 @@
+{
+  "numStartups": 4,
+  "tipsHistory": {
+    "new-user-warmup": 1,
+    "plan-mode-for-complex-tasks": 1,
+    "terminal-setup": 1,
+    "memory-command": 1,
+    "theme-command": 1,
+    "status-line": 1,
+    "stickers-command": 1,
+    "prompt-queue": 1,
+    "enter-to-steer-in-relatime": 1,
+    "todo-list": 1,
+    "install-github-app": 2,
+    "install-slack-app": 2,
+    "drag-and-drop-images": 2,
+    "double-esc-code-restore": 2,
+    "continue": 2,
+    "shift-tab": 2,
+    "image-paste": 2,
+    "web-app": 4
+  },
+  "cachedStatsigGates": {
+    "tengu_prompt_suggestion": true
+  },
+  "cachedGrowthBookFeatures": {
+    "tengu_1p_event_batch_config": {
+      "scheduledDelayMillis": 5000,
+      "maxExportBatchSize": 200,
+      "maxQueueSize": 8192
+    },
+    "tengu_mcp_tool_search": true,
+    "tengu_scratch": false,
+    "tengu_disable_bypass_permissions_mode": false,
+    "tengu_log_segment_events": false,
+    "tengu_log_datadog_events": true,
+    "tengu_pid_based_version_locking": true,
+    "tengu_event_sampling_config": {},
+    "tengu_tool_pear": false,
+    "tengu_thinkback": false,
+    "tengu_sumi": false,
+    "tengu_c4w_usage_limit_notifications_enabled": true,
+    "tengu-top-of-feed-tip": {
+      "tip": "",
+      "color": ""
+    },
+    "tengu_react_vulnerability_warning": false,
+    "tengu_code_diff_cli": true,
+    "tengu_post_compact_survey": false,
+    "tengu_tool_search_unsupported_models": null,
+    "tengu_ant_attribution_header_new": true,
+    "enhanced_telemetry_beta": false,
+    "tengu_streaming_tool_execution2": false,
+    "tengu_session_memory": false,
+    "tengu_bash_haiku_prefetch": true,
+    "tengu_permission_explainer": false
+  },
+  "userID": "447219701453a711294c1417ff8af00b3b5f1eab869ad58eb7ee6b54ad9cb492",
+  "firstStartTime": "2026-01-16T14:45:35.765Z",
+  "sonnet45MigrationComplete": true,
+  "opus45MigrationComplete": true,
+  "opusProMigrationComplete": true,
+  "thinkingMigrationComplete": true,
+  "cachedChromeExtensionInstalled": false,
+  "changelogLastFetched": 1768574774041,
+  "oauthAccount": {
+    "accountUuid": "01cfd15e-a5e0-4f0d-8c57-6f4d5f2e81d2",
+    "emailAddress": "wunder.kontakt@posteo.de",
+    "organizationUuid": "5557e9a6-7fbc-49ab-a709-48b2ddcbda0f",
+    "hasExtraUsageEnabled": true,
+    "displayName": "Maja&Ralf",
+    "organizationRole": "admin",
+    "workspaceRole": null,
+    "organizationName": "wunder.kontakt@posteo.de's Organization"
+  },
+  "claudeCodeFirstTokenDate": "2025-08-13T12:41:16.329394Z",
+  "hasCompletedOnboarding": true,
+  "lastOnboardingVersion": "2.1.9",
+  "projects": {
+    "/home/runner/workspace": {
+      "allowedTools": [],
+      "mcpContextUris": [],
+      "mcpServers": {},
+      "enabledMcpjsonServers": [],
+      "disabledMcpjsonServers": [],
+      "hasTrustDialogAccepted": true,
+      "projectOnboardingSeenCount": 0,
+      "hasClaudeMdExternalIncludesApproved": false,
+      "hasClaudeMdExternalIncludesWarningShown": false,
+      "reactVulnerabilityCache": {
+        "detected": false,
+        "package": null,
+        "packageName": null,
+        "version": null,
+        "packageManager": null
+      },
+      "hasCompletedProjectOnboarding": true,
+      "lastCost": 0.28534950000000003,
+      "lastAPIDuration": 90607,
+      "lastAPIDurationWithoutRetries": 90580,
+      "lastToolDuration": 4980,
+      "lastDuration": 161158,
+      "lastLinesAdded": 0,
+      "lastLinesRemoved": 0,
+      "lastTotalInputTokens": 17214,
+      "lastTotalOutputTokens": 3081,
+      "lastTotalCacheCreationInputTokens": 12588,
+      "lastTotalCacheReadInputTokens": 244967,
+      "lastTotalWebSearchRequests": 0,
+      "lastModelUsage": {
+        "claude-haiku-4-5-20251001": {
+          "inputTokens": 17136,
+          "outputTokens": 518,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "webSearchRequests": 0,
+          "costUSD": 0.019725999999999997
+        },
+        "claude-opus-4-5-20251101": {
+          "inputTokens": 78,
+          "outputTokens": 2563,
+          "cacheReadInputTokens": 244967,
+          "cacheCreationInputTokens": 12588,
+          "webSearchRequests": 0,
+          "costUSD": 0.2656235
+        }
+      },
+      "lastSessionId": "7b621aa8-5ea0-4963-a448-8ecb8ffb31ce"
+    }
+  },
+  "githubRepoPaths": {
+    "frankentag/notebooklm_clone": [
+      "/home/runner/workspace"
+    ]
+  },
+  "lastReleaseNotesSeen": "2.1.9",
+  "hasShownOpus45Notice": {
+    "5557e9a6-7fbc-49ab-a709-48b2ddcbda0f": true
+  },
+  "groveConfigCache": {
+    "01cfd15e-a5e0-4f0d-8c57-6f4d5f2e81d2": {
+      "grove_enabled": true,
+      "timestamp": 1768574774070
+    }
+  },
+  "s1mAccessCache": {
+    "5557e9a6-7fbc-49ab-a709-48b2ddcbda0f": {
+      "hasAccess": false,
+      "hasAccessNotAsDefault": false,
+      "timestamp": 1768574774084
+    }
+  },
+  "officialMarketplaceAutoInstallAttempted": true,
+  "officialMarketplaceAutoInstalled": true,
+  "skillUsage": {
+    "init": {
+      "usageCount": 1,
+      "lastUsedAt": 1768574829566
+    }
+  }
+}

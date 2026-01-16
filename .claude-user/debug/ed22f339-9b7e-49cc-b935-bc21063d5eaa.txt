@@ -1,0 +1,921 @@
+2026-01-16T14:45:35.755Z [DEBUG] Watching for changes in setting files /home/runner/workspace/.claude...
+2026-01-16T14:45:35.760Z [ERROR] Failed to save config with lock: Error: ENOENT: no such file or directory, lstat '/home/runner/workspace/.claude-user/.claude.json'
+2026-01-16T14:45:35.761Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574735761
+2026-01-16T14:45:35.761Z [DEBUG] Setting permissions for new file: 600
+2026-01-16T14:45:35.761Z [DEBUG] Temp file written successfully, size: 82 bytes
+2026-01-16T14:45:35.761Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574735761 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:35.761Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:35.767Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574735767
+2026-01-16T14:45:35.768Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:35.768Z [DEBUG] Temp file written successfully, size: 130 bytes
+2026-01-16T14:45:35.768Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:35.768Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574735767 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:35.768Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:35.768Z [DEBUG] [init] configureGlobalMTLS starting
+2026-01-16T14:45:35.769Z [DEBUG] [init] configureGlobalMTLS complete
+2026-01-16T14:45:35.769Z [DEBUG] [init] configureGlobalAgents starting
+2026-01-16T14:45:35.769Z [DEBUG] [init] configureGlobalAgents complete
+2026-01-16T14:45:35.771Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574735771
+2026-01-16T14:45:35.771Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:35.771Z [DEBUG] Temp file written successfully, size: 167 bytes
+2026-01-16T14:45:35.771Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:35.771Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574735771 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:35.771Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:35.772Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574735772
+2026-01-16T14:45:35.772Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:35.772Z [DEBUG] Temp file written successfully, size: 202 bytes
+2026-01-16T14:45:35.772Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:35.772Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574735772 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:35.772Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:35.773Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574735773
+2026-01-16T14:45:35.773Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:35.773Z [DEBUG] Temp file written successfully, size: 238 bytes
+2026-01-16T14:45:35.773Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:35.773Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574735773 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:35.773Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:35.774Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574735774
+2026-01-16T14:45:35.774Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:35.774Z [DEBUG] Temp file written successfully, size: 275 bytes
+2026-01-16T14:45:35.774Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:35.774Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574735774 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:35.774Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:35.783Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-01-16T14:45:35.784Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-01-16T14:45:35.784Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-01-16T14:45:35.786Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-01-16T14:45:35.803Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-16T14:45:35.803Z [DEBUG] Total LSP servers loaded: 0
+2026-01-16T14:45:35.803Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-01-16T14:45:35.803Z [DEBUG] LSP manager initialized with 0 servers
+2026-01-16T14:45:35.803Z [DEBUG] [STARTUP] MCP configs loaded in 17ms
+2026-01-16T14:45:35.803Z [DEBUG] LSP server manager initialized successfully
+2026-01-16T14:45:35.803Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-01-16T14:45:35.804Z [DEBUG] [STARTUP] Running setup()...
+2026-01-16T14:45:35.844Z [DEBUG] Loading skills from: managed=/etc/claude-code/.claude/skills, user=/home/runner/workspace/.claude-user/skills, project=[/home/runner/workspace/.claude/skills]
+2026-01-16T14:45:35.865Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-01-16T14:45:35.903Z [DEBUG] Error log sink initialized
+2026-01-16T14:45:35.936Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/todos/ed22f339-9b7e-49cc-b935-bc21063d5eaa-agent-ed22f339-9b7e-49cc-b935-bc21063d5eaa.json.tmp.2220.1768574735936
+2026-01-16T14:45:35.936Z [DEBUG] Temp file written successfully, size: 2 bytes
+2026-01-16T14:45:35.936Z [DEBUG] Renaming /home/runner/workspace/.claude-user/todos/ed22f339-9b7e-49cc-b935-bc21063d5eaa-agent-ed22f339-9b7e-49cc-b935-bc21063d5eaa.json.tmp.2220.1768574735936 to /home/runner/workspace/.claude-user/todos/ed22f339-9b7e-49cc-b935-bc21063d5eaa-agent-ed22f339-9b7e-49cc-b935-bc21063d5eaa.json
+2026-01-16T14:45:35.936Z [DEBUG] File /home/runner/workspace/.claude-user/todos/ed22f339-9b7e-49cc-b935-bc21063d5eaa-agent-ed22f339-9b7e-49cc-b935-bc21063d5eaa.json written atomically
+2026-01-16T14:45:35.949Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-16T14:45:35.949Z [DEBUG] Total plugin skills loaded: 0
+2026-01-16T14:45:35.949Z [DEBUG] Total plugin commands loaded: 0
+2026-01-16T14:45:35.949Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-16T14:45:35.975Z [DEBUG] [STARTUP] setup() completed in 171ms
+2026-01-16T14:45:35.975Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-01-16T14:45:35.992Z [DEBUG] Total plugin agents loaded: 0
+2026-01-16T14:45:35.994Z [DEBUG] Loaded 0 unique skills (managed: 0, user: 0, project: 0, legacy commands: 0)
+2026-01-16T14:45:35.994Z [DEBUG] getSkills returning: 0 skill dir commands, 0 plugin skills, 0 bundled skills
+2026-01-16T14:45:35.996Z [DEBUG] [STARTUP] Commands and agents loaded in 21ms
+2026-01-16T14:45:35.996Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-01-16T14:45:35.999Z [DEBUG] [render] initYoga starting
+2026-01-16T14:45:36.064Z [DEBUG] Creating shell snapshot for bash (/bin/bash)
+2026-01-16T14:45:36.065Z [DEBUG] Looking for shell config file: /home/runner/.bashrc
+2026-01-16T14:45:36.065Z [DEBUG] Snapshots directory: /home/runner/workspace/.claude-user/shell-snapshots
+2026-01-16T14:45:36.066Z [DEBUG] Creating snapshot at: /home/runner/workspace/.claude-user/shell-snapshots/snapshot-bash-1768574736065-3d62jn.sh
+2026-01-16T14:45:36.066Z [DEBUG] Shell binary exists: true
+2026-01-16T14:45:36.066Z [DEBUG] Execution timeout: 10000ms
+2026-01-16T14:45:36.073Z [DEBUG] Ripgrep first use test: PASSED (mode=builtin, path=/home/runner/workspace/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-linux/rg)
+2026-01-16T14:45:36.092Z [DEBUG] [render] initYoga complete
+2026-01-16T14:45:36.111Z [DEBUG] [keybindings] KeybindingSetup initialized with 45 bindings, 0 warnings
+2026-01-16T14:45:36.241Z [DEBUG] [keybindings] Skipping file watcher - user customization disabled
+2026-01-16T14:45:36.337Z [DEBUG] Watching for changes in skill/command directories: /home/runner/workspace/.claude/skills...
+2026-01-16T14:45:36.344Z [DEBUG] [Claude in Chrome] Extension not found in any browser
+2026-01-16T14:45:36.345Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736345
+2026-01-16T14:45:36.345Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:36.345Z [DEBUG] Temp file written successfully, size: 318 bytes
+2026-01-16T14:45:36.345Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:36.345Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736345 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:36.345Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:36.363Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736363
+2026-01-16T14:45:36.363Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:36.363Z [DEBUG] Temp file written successfully, size: 359 bytes
+2026-01-16T14:45:36.363Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:36.363Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736363 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:36.363Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:36.440Z [DEBUG] Shell snapshot created successfully (17270 bytes)
+2026-01-16T14:45:36.442Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736442
+2026-01-16T14:45:36.443Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:36.443Z [DEBUG] Temp file written successfully, size: 535 bytes
+2026-01-16T14:45:36.443Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:36.443Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736442 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:36.444Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:36.445Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736445
+2026-01-16T14:45:36.445Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:36.445Z [DEBUG] Temp file written successfully, size: 571 bytes
+2026-01-16T14:45:36.445Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:36.445Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736445 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:36.445Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:36.446Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736446
+2026-01-16T14:45:36.446Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:36.446Z [DEBUG] Temp file written successfully, size: 599 bytes
+2026-01-16T14:45:36.446Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:36.446Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736446 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:36.446Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:36.447Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736447
+2026-01-16T14:45:36.447Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:36.447Z [DEBUG] Temp file written successfully, size: 651 bytes
+2026-01-16T14:45:36.447Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:36.447Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736447 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:36.447Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:36.448Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736448
+2026-01-16T14:45:36.448Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:36.448Z [DEBUG] Temp file written successfully, size: 690 bytes
+2026-01-16T14:45:36.448Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:36.448Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736448 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:36.448Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:36.449Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736449
+2026-01-16T14:45:36.449Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:36.449Z [DEBUG] Temp file written successfully, size: 728 bytes
+2026-01-16T14:45:36.449Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:36.449Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736449 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:36.449Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:36.450Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736450
+2026-01-16T14:45:36.450Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:36.450Z [DEBUG] Temp file written successfully, size: 773 bytes
+2026-01-16T14:45:36.450Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:36.450Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736450 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:36.450Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:36.451Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736451
+2026-01-16T14:45:36.451Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:36.451Z [DEBUG] Temp file written successfully, size: 812 bytes
+2026-01-16T14:45:36.451Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:36.451Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736451 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:36.451Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:36.452Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736452
+2026-01-16T14:45:36.452Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:36.452Z [DEBUG] Temp file written successfully, size: 842 bytes
+2026-01-16T14:45:36.452Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:36.452Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736452 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:36.452Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:36.453Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736453
+2026-01-16T14:45:36.453Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:36.453Z [DEBUG] Temp file written successfully, size: 872 bytes
+2026-01-16T14:45:36.453Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:36.453Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736453 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:36.453Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:36.454Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736454
+2026-01-16T14:45:36.454Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:36.454Z [DEBUG] Temp file written successfully, size: 897 bytes
+2026-01-16T14:45:36.454Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:36.454Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736454 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:36.454Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:36.628Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736628
+2026-01-16T14:45:36.628Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:36.628Z [DEBUG] Temp file written successfully, size: 964 bytes
+2026-01-16T14:45:36.628Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:36.628Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574736628 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:36.629Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:38.084Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574738084
+2026-01-16T14:45:38.084Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:38.084Z [DEBUG] Temp file written successfully, size: 964 bytes
+2026-01-16T14:45:38.084Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:38.084Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574738084 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:38.085Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:45:38.085Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574738085
+2026-01-16T14:45:38.085Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:45:38.085Z [DEBUG] Temp file written successfully, size: 964 bytes
+2026-01-16T14:45:38.085Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:45:38.085Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574738085 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:45:38.086Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:01.208Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574761208
+2026-01-16T14:46:01.208Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:01.208Z [DEBUG] Temp file written successfully, size: 964 bytes
+2026-01-16T14:46:01.208Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:01.208Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574761208 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:01.209Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:01.220Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574761219
+2026-01-16T14:46:01.220Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:01.220Z [DEBUG] Temp file written successfully, size: 964 bytes
+2026-01-16T14:46:01.220Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:01.220Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574761219 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:01.220Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:01.368Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574761368
+2026-01-16T14:46:01.368Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:01.368Z [DEBUG] Temp file written successfully, size: 1225 bytes
+2026-01-16T14:46:01.368Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:01.368Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574761368 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:01.369Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:01.488Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574761488
+2026-01-16T14:46:01.488Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:01.488Z [DEBUG] Temp file written successfully, size: 1352 bytes
+2026-01-16T14:46:01.488Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:01.488Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574761488 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:01.489Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:01.757Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574761757
+2026-01-16T14:46:01.757Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:01.758Z [DEBUG] Temp file written successfully, size: 1413 bytes
+2026-01-16T14:46:01.758Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:01.758Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574761757 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:01.758Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:01.764Z [DEBUG] Skipping Notification:auth_success hook execution - workspace trust not accepted
+2026-01-16T14:46:11.113Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574771113
+2026-01-16T14:46:11.113Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:11.113Z [DEBUG] Temp file written successfully, size: 1483 bytes
+2026-01-16T14:46:11.113Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:11.113Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574771113 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:11.113Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:11.124Z [DEBUG] [render] initYoga starting
+2026-01-16T14:46:11.124Z [DEBUG] [render] initYoga complete
+2026-01-16T14:46:11.128Z [DEBUG] [keybindings] KeybindingSetup initialized with 45 bindings, 0 warnings
+2026-01-16T14:46:11.153Z [DEBUG] [keybindings] Skipping file watcher - user customization disabled
+2026-01-16T14:46:13.421Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773421
+2026-01-16T14:46:13.421Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:13.421Z [DEBUG] Temp file written successfully, size: 1875 bytes
+2026-01-16T14:46:13.421Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:13.421Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773421 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:13.421Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:13.466Z [DEBUG] Grove: No cache, fetching config in background (dialog skipped this session)
+2026-01-16T14:46:13.469Z [DEBUG] [STARTUP] showSetupScreens() completed in 37473ms
+2026-01-16T14:46:13.470Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:46:13.470Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:46:13.493Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:46:13.494Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-01-16T14:46:13.499Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773499
+2026-01-16T14:46:13.499Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:13.499Z [DEBUG] Temp file written successfully, size: 1895 bytes
+2026-01-16T14:46:13.499Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:13.499Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773499 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:13.499Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:13.518Z [DEBUG] Getting matching hook commands for SessionStart with query: startup
+2026-01-16T14:46:13.518Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:46:13.518Z [DEBUG] Matched 0 unique hooks for query "startup" (0 before deduplication)
+2026-01-16T14:46:13.521Z [DEBUG] [render] initYoga starting
+2026-01-16T14:46:13.522Z [DEBUG] [render] initYoga complete
+2026-01-16T14:46:13.610Z [DEBUG] Git remote URL: https://github.com/frankentag/notebooklm_clone
+2026-01-16T14:46:13.610Z [DEBUG] Parsed repository: frankentag/notebooklm_clone from https://github.com/frankentag/notebooklm_clone
+2026-01-16T14:46:13.610Z [DEBUG] Parsed repository: frankentag/notebooklm_clone from URL: https://github.com/frankentag/notebooklm_clone
+2026-01-16T14:46:13.615Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773615
+2026-01-16T14:46:13.615Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:13.615Z [DEBUG] Temp file written successfully, size: 1997 bytes
+2026-01-16T14:46:13.615Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:13.615Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773615 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:13.615Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:13.615Z [DEBUG] Added /home/runner/workspace to tracked paths for repo frankentag/notebooklm_clone
+2026-01-16T14:46:13.666Z [DEBUG] [keybindings] KeybindingSetup initialized with 45 bindings, 0 warnings
+2026-01-16T14:46:13.743Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773743
+2026-01-16T14:46:13.743Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:13.743Z [DEBUG] Temp file written successfully, size: 2032 bytes
+2026-01-16T14:46:13.743Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:13.743Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773743 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:13.743Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:13.745Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773745
+2026-01-16T14:46:13.745Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:13.745Z [DEBUG] Temp file written successfully, size: 2114 bytes
+2026-01-16T14:46:13.745Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:13.745Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773745 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:13.745Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:13.758Z [DEBUG] [keybindings] Skipping file watcher - user customization disabled
+2026-01-16T14:46:13.758Z [DEBUG] [REPL:mount] REPL mounted, disabled=false
+2026-01-16T14:46:13.771Z [DEBUG] performStartupChecks called
+2026-01-16T14:46:13.772Z [DEBUG] Starting background plugin installations
+2026-01-16T14:46:13.772Z [DEBUG] performBackgroundPluginInstallations called
+2026-01-16T14:46:13.786Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773786
+2026-01-16T14:46:13.786Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:13.786Z [DEBUG] Temp file written successfully, size: 2171 bytes
+2026-01-16T14:46:13.786Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:13.786Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773786 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:13.786Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:13.796Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773796
+2026-01-16T14:46:13.796Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:13.796Z [DEBUG] Temp file written successfully, size: 2244 bytes
+2026-01-16T14:46:13.796Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:13.796Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773796 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:13.796Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:13.798Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773798
+2026-01-16T14:46:13.798Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:13.798Z [DEBUG] Temp file written successfully, size: 2292 bytes
+2026-01-16T14:46:13.798Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:13.798Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773798 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:13.798Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:13.799Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773799
+2026-01-16T14:46:13.799Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:13.800Z [DEBUG] Temp file written successfully, size: 2325 bytes
+2026-01-16T14:46:13.800Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:13.800Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773799 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:13.800Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:13.802Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773802
+2026-01-16T14:46:13.802Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:13.802Z [DEBUG] Temp file written successfully, size: 2365 bytes
+2026-01-16T14:46:13.802Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:13.802Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773802 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:13.802Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:13.803Z [DEBUG] Setting installation status: 0 marketplaces, 0 installable plugins, 0 uninstallable plugins
+2026-01-16T14:46:13.804Z [DEBUG] Attempting to auto-install official marketplace
+2026-01-16T14:46:13.824Z [DEBUG] Loaded plugins - Enabled: 0, Disabled: 0, Commands: 0, Agents: 0, Errors: 0
+2026-01-16T14:46:13.868Z [DEBUG] Skills and commands included in Skill tool:
+2026-01-16T14:46:13.872Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:46:13.872Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:46:13.872Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:46:13.965Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-16T14:46:13.967Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773967
+2026-01-16T14:46:13.967Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:13.967Z [DEBUG] Temp file written successfully, size: 2415 bytes
+2026-01-16T14:46:13.967Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:13.967Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773967 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:13.968Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:13.973Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:46:13.973Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:46:13.973Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:46:13.974Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773974
+2026-01-16T14:46:13.974Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:13.975Z [DEBUG] Temp file written successfully, size: 2461 bytes
+2026-01-16T14:46:13.975Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:13.975Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773974 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:13.975Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:13.976Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773976
+2026-01-16T14:46:13.976Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:13.976Z [DEBUG] Temp file written successfully, size: 2499 bytes
+2026-01-16T14:46:13.976Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:13.976Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574773976 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:13.976Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:13.996Z [DEBUG] AutoUpdaterWrapper: Installation type: unknown
+2026-01-16T14:46:14.019Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574774019
+2026-01-16T14:46:14.019Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:14.019Z [DEBUG] Temp file written successfully, size: 2680 bytes
+2026-01-16T14:46:14.019Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:14.019Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574774019 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:14.019Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:14.044Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574774044
+2026-01-16T14:46:14.044Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:14.044Z [DEBUG] Temp file written successfully, size: 2680 bytes
+2026-01-16T14:46:14.044Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:14.044Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574774044 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:14.044Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:14.070Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574774070
+2026-01-16T14:46:14.070Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:14.070Z [DEBUG] Temp file written successfully, size: 2823 bytes
+2026-01-16T14:46:14.070Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:14.070Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574774070 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:14.074Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:14.103Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574774103
+2026-01-16T14:46:14.103Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:14.103Z [DEBUG] Temp file written successfully, size: 2999 bytes
+2026-01-16T14:46:14.103Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:14.103Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574774103 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:14.103Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:14.198Z [INFO] SSH not configured for GitHub, using HTTPS for anthropics/claude-plugins-official
+2026-01-16T14:46:14.420Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:46:14.959Z [DEBUG] Added marketplace source: claude-plugins-official
+2026-01-16T14:46:14.959Z [DEBUG] Successfully auto-installed official marketplace
+2026-01-16T14:46:14.961Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574774961
+2026-01-16T14:46:14.961Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:14.961Z [DEBUG] Temp file written successfully, size: 3094 bytes
+2026-01-16T14:46:14.961Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:14.961Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574774961 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:14.961Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:14.962Z [DEBUG] Showing marketplace installation success notification
+2026-01-16T14:46:16.075Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-16T14:46:16.075Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-16T14:46:16.076Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-16T14:46:16.076Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-16T14:46:16.118Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-01-16T14:46:16.118Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:46:16.118Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-16T14:46:16.124Z [DEBUG] FileHistory: Added snapshot for 9bf4819d-e60d-42c6-b2c0-efbf013be58d, tracking 0 files
+2026-01-16T14:46:16.155Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574776155
+2026-01-16T14:46:16.155Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:16.155Z [DEBUG] Temp file written successfully, size: 3139 bytes
+2026-01-16T14:46:16.155Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:16.155Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574776155 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:16.155Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:16.156Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-16T14:46:16.170Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:46:16.170Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:46:16.170Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:46:16.175Z [DEBUG] Total plugin output styles loaded: 0
+2026-01-16T14:46:16.193Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:46:16.194Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574776194
+2026-01-16T14:46:16.194Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:16.194Z [DEBUG] Temp file written successfully, size: 3185 bytes
+2026-01-16T14:46:16.194Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:16.194Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574776194 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:16.195Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:16.211Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:46:16.211Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:46:16.211Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:46:16.610Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:46:19.990Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:46:23.695Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574783695
+2026-01-16T14:46:23.695Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:23.695Z [DEBUG] Temp file written successfully, size: 3220 bytes
+2026-01-16T14:46:23.695Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:23.695Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574783695 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:23.695Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:23.714Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-01-16T14:46:23.714Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:46:23.714Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-16T14:46:23.715Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:46:23.753Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574783753
+2026-01-16T14:46:23.753Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:23.753Z [DEBUG] Temp file written successfully, size: 3269 bytes
+2026-01-16T14:46:23.753Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:23.753Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574783753 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:23.754Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:23.757Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574783757
+2026-01-16T14:46:23.757Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:46:23.758Z [DEBUG] Temp file written successfully, size: 3307 bytes
+2026-01-16T14:46:23.758Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:46:23.758Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574783757 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:46:23.758Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:46:23.768Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:46:23.768Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:46:23.768Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:46:27.104Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:46:31.426Z [DEBUG] Getting matching hook commands for SubagentStop with query: undefined
+2026-01-16T14:46:31.427Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:46:31.427Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-16T14:46:31.428Z [DEBUG] [Speculation] enabled=false
+2026-01-16T14:47:09.568Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574829568
+2026-01-16T14:47:09.568Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:47:09.568Z [DEBUG] Temp file written successfully, size: 3407 bytes
+2026-01-16T14:47:09.568Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:47:09.568Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574829568 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:47:09.570Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:47:09.575Z [DEBUG] Metadata string for init:
+2026-01-16T14:47:09.575Z [DEBUG] <command-message>init</command-message>
+<command-name>/init</command-name>
+2026-01-16T14:47:09.575Z [DEBUG] command-message tags in metadata: 1
+2026-01-16T14:47:09.592Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-16T14:47:09.592Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-16T14:47:09.592Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-16T14:47:09.592Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-16T14:47:09.624Z [DEBUG] processPromptSlashCommand creating 3 messages for init
+2026-01-16T14:47:09.624Z [DEBUG] Message 1: <command-message>init</command-message>
+<command-name>/init</command-name>
+2026-01-16T14:47:09.624Z [DEBUG] Message 2 [META]: [{"type":"text","text":"Please analyze this codebase and create a CLAUDE.md file, which will be given to future instances of Claude Code to operate in this repository.\n\nWhat to add:\n1. Commands tha
+2026-01-16T14:47:09.624Z [DEBUG] Message 3: [ATTACHMENT]
+2026-01-16T14:47:09.639Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-01-16T14:47:09.639Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:09.639Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-16T14:47:09.641Z [DEBUG] FileHistory: Making snapshot for message 05e3eb48-eccd-4700-bcf6-0d6943185648
+2026-01-16T14:47:09.641Z [DEBUG] FileHistory: Added snapshot for 05e3eb48-eccd-4700-bcf6-0d6943185648, tracking 0 files
+2026-01-16T14:47:09.657Z [DEBUG] UserCommandMessage rendering: "init" (args: "none", isSkillFormat: false)
+2026-01-16T14:47:09.765Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:47:09.804Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:47:09.804Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:47:09.804Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:47:09.943Z [DEBUG] AutoUpdaterWrapper: Installation type: unknown
+2026-01-16T14:47:13.051Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:47:14.918Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-16T14:47:14.919Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-16T14:47:14.920Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-16T14:47:14.920Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-16T14:47:14.937Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-16T14:47:14.937Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:14.937Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:14.937Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-16T14:47:14.937Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:14.937Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:14.937Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-16T14:47:14.937Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:14.937Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:14.937Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-16T14:47:14.937Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:14.937Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:14.937Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-16T14:47:14.947Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-16T14:47:14.947Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:14.947Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:47:15.061Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-16T14:47:15.061Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:15.061Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:47:15.674Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-16T14:47:15.674Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:15.674Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:15.686Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-16T14:47:15.687Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:15.687Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:15.687Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-16T14:47:15.687Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:15.687Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:15.714Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-16T14:47:15.714Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:15.714Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:15.779Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-16T14:47:15.779Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-16T14:47:15.779Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-16T14:47:15.779Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-16T14:47:15.806Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:47:15.816Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:47:15.816Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:47:15.816Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:47:18.775Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:47:21.314Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-16T14:47:21.314Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-16T14:47:21.315Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-16T14:47:21.344Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-16T14:47:21.344Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:21.344Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:21.344Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-16T14:47:21.344Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:21.344Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:21.344Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-16T14:47:21.344Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:21.344Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:21.344Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-16T14:47:21.354Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-16T14:47:21.354Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:21.354Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:47:21.486Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-16T14:47:21.486Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:21.486Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:47:21.640Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-16T14:47:21.640Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:21.640Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:21.708Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-16T14:47:21.708Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:21.708Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:21.723Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-16T14:47:21.723Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:21.723Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:21.772Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-16T14:47:21.773Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-16T14:47:21.773Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-16T14:47:21.773Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-16T14:47:21.815Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:47:21.819Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:47:21.819Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:47:21.820Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:47:25.442Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:47:26.746Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-16T14:47:26.746Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-16T14:47:26.746Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-16T14:47:26.751Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-16T14:47:26.751Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:26.751Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:47:26.751Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-16T14:47:26.751Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:26.751Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:47:26.751Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-16T14:47:26.751Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:26.751Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:47:26.801Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-16T14:47:26.801Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:26.801Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:47:26.801Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-16T14:47:26.801Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:26.801Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:47:26.801Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-16T14:47:26.801Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:26.801Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:47:26.829Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-16T14:47:26.829Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-16T14:47:26.829Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-16T14:47:26.829Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-16T14:47:26.856Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:47:26.865Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:47:26.865Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:47:26.865Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:47:30.189Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:47:33.210Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-16T14:47:33.210Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-16T14:47:33.211Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-16T14:47:33.211Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-16T14:47:33.211Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-01-16T14:47:33.216Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-16T14:47:33.216Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:33.216Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:33.216Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-16T14:47:33.216Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:33.216Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:33.216Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-16T14:47:33.216Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:33.216Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:33.216Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-16T14:47:33.216Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:33.216Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:33.216Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-01-16T14:47:33.216Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:33.216Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-01-16T14:47:33.239Z [DEBUG] tree-sitter: WASM files not found
+2026-01-16T14:47:33.343Z [DEBUG] No session environment scripts found
+2026-01-16T14:47:33.501Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-16T14:47:33.501Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:33.501Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:33.640Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-16T14:47:33.640Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:33.640Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:33.642Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-16T14:47:33.645Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574853645
+2026-01-16T14:47:33.645Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:47:33.645Z [DEBUG] Temp file written successfully, size: 3446 bytes
+2026-01-16T14:47:33.645Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:47:33.645Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574853645 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:47:33.646Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:47:33.647Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:47:33.647Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:47:33.648Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:47:33.707Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-16T14:47:33.707Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:33.707Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:33.740Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-01-16T14:47:33.740Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:33.740Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-01-16T14:47:33.740Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-16T14:47:33.740Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:33.740Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:47:33.783Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-16T14:47:33.783Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-16T14:47:33.783Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-16T14:47:33.783Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-16T14:47:33.806Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:47:33.816Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:47:33.816Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:47:33.816Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:47:34.020Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:47:37.051Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:47:38.263Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-16T14:47:38.263Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-16T14:47:38.269Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-16T14:47:38.269Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:38.269Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:47:38.269Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-16T14:47:38.269Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:38.269Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:47:38.328Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-16T14:47:38.328Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:38.328Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:47:38.328Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-16T14:47:38.328Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:47:38.328Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:47:38.360Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-16T14:47:38.360Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-16T14:47:38.360Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-16T14:47:38.360Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-16T14:47:38.415Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:47:38.420Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:47:38.420Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:47:38.420Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:47:41.326Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:48:20.255Z [WARN] Streaming stall detected: 35.5s gap between events (stall #1)
+2026-01-16T14:48:20.789Z [WARN] Streaming completed with 1 stall(s), total stall time: 35.5s
+2026-01-16T14:48:20.815Z [DEBUG] executePreToolHooks called for tool: Write
+2026-01-16T14:48:20.823Z [DEBUG] Getting matching hook commands for PreToolUse with query: Write
+2026-01-16T14:48:20.823Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:48:20.823Z [DEBUG] Matched 0 unique hooks for query "Write" (0 before deduplication)
+2026-01-16T14:48:20.836Z [DEBUG] Permission suggestions for Write: [
+  {
+    "type": "setMode",
+    "mode": "acceptEdits",
+    "destination": "session"
+  }
+]
+2026-01-16T14:48:21.240Z [DEBUG] executePermissionRequestHooks called for tool: Write
+2026-01-16T14:48:21.693Z [DEBUG] Getting matching hook commands for PermissionRequest with query: Write
+2026-01-16T14:48:21.693Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:48:21.693Z [DEBUG] Matched 0 unique hooks for query "Write" (0 before deduplication)
+2026-01-16T14:48:27.459Z [DEBUG] Getting matching hook commands for Notification with query: permission_prompt
+2026-01-16T14:48:27.459Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:48:27.459Z [DEBUG] Matched 0 unique hooks for query "permission_prompt" (0 before deduplication)
+2026-01-16T14:48:58.040Z [DEBUG] Applying permission update: Setting mode to 'acceptEdits'
+2026-01-16T14:48:58.043Z [DEBUG] Writing to temp file: /home/runner/workspace/CLAUDE.md.tmp.2220.1768574938043
+2026-01-16T14:48:58.043Z [DEBUG] Preserving file permissions: 100644
+2026-01-16T14:48:58.043Z [DEBUG] Temp file written successfully, size: 6017 bytes
+2026-01-16T14:48:58.043Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:48:58.043Z [DEBUG] Renaming /home/runner/workspace/CLAUDE.md.tmp.2220.1768574938043 to /home/runner/workspace/CLAUDE.md
+2026-01-16T14:48:58.043Z [DEBUG] File /home/runner/workspace/CLAUDE.md written atomically
+2026-01-16T14:48:58.088Z [DEBUG] FileHistory: Tracked file modification for /home/runner/workspace/CLAUDE.md
+2026-01-16T14:48:58.123Z [DEBUG] [lspRecommendation] Looking for LSP plugins for .md
+2026-01-16T14:48:58.139Z [DEBUG] Getting matching hook commands for PostToolUse with query: Write
+2026-01-16T14:48:58.139Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:48:58.139Z [DEBUG] Matched 0 unique hooks for query "Write" (0 before deduplication)
+2026-01-16T14:48:58.545Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-16T14:48:58.545Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-16T14:48:58.545Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-16T14:48:58.545Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-16T14:48:58.569Z [DEBUG] AutoUpdaterWrapper: Installation type: unknown
+2026-01-16T14:48:58.662Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:48:58.702Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:48:58.702Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:48:58.702Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:49:01.812Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:49:09.742Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-01-16T14:49:09.742Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:49:09.742Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-16T14:49:09.743Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:49:09.788Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574949788
+2026-01-16T14:49:09.788Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:49:09.788Z [DEBUG] Temp file written successfully, size: 3471 bytes
+2026-01-16T14:49:09.788Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:49:09.788Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574949788 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:49:09.789Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:49:09.799Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574949799
+2026-01-16T14:49:09.799Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:49:09.799Z [DEBUG] Temp file written successfully, size: 3496 bytes
+2026-01-16T14:49:09.799Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:49:09.799Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768574949799 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:49:09.799Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:49:09.842Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:49:09.847Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:49:09.847Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:49:14.184Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:49:14.782Z [DEBUG] Getting matching hook commands for SubagentStop with query: undefined
+2026-01-16T14:49:14.782Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:49:14.782Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-16T14:49:14.784Z [DEBUG] [Speculation] enabled=false
+2026-01-16T14:52:26.865Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-16T14:52:26.865Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-16T14:52:26.865Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-16T14:52:26.865Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-16T14:52:26.893Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-01-16T14:52:26.893Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:26.893Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-16T14:52:26.897Z [DEBUG] FileHistory: Making snapshot for message b0efbf58-6314-4488-aaf5-0cfe646cb349
+2026-01-16T14:52:26.897Z [DEBUG] FileHistory: Added snapshot for b0efbf58-6314-4488-aaf5-0cfe646cb349, tracking 1 files
+2026-01-16T14:52:26.928Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-16T14:52:26.942Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:52:26.942Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:52:26.942Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:52:26.962Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:52:26.975Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:52:26.975Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:52:26.975Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:52:27.601Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:52:33.641Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:52:36.932Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-16T14:52:36.932Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-16T14:52:36.932Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-16T14:52:36.952Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-16T14:52:36.952Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:36.952Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:52:36.952Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-16T14:52:36.952Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:36.952Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:52:36.952Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-16T14:52:36.952Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:36.952Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:52:37.285Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-16T14:52:37.285Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:37.285Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:52:37.341Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-16T14:52:37.341Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:37.341Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:52:37.385Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-16T14:52:37.385Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:37.385Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-16T14:52:37.426Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-16T14:52:37.426Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-16T14:52:37.426Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-16T14:52:37.426Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-16T14:52:37.449Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:52:37.463Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:52:37.463Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:52:37.463Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:52:40.409Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:52:42.637Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-16T14:52:42.637Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-16T14:52:42.647Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-16T14:52:42.647Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:42.647Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:52:42.647Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-16T14:52:42.647Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:42.647Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:52:42.701Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-16T14:52:42.701Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:42.701Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:52:42.701Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-16T14:52:42.701Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:42.701Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:52:42.754Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-16T14:52:42.754Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-16T14:52:42.754Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-16T14:52:42.754Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-16T14:52:42.820Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:52:42.826Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:52:42.826Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:52:42.826Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:52:46.246Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:52:53.445Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-16T14:52:53.450Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-16T14:52:53.450Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:53.450Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:52:53.490Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-16T14:52:53.490Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:53.490Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-16T14:52:53.535Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-16T14:52:53.535Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-16T14:52:53.535Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-16T14:52:53.535Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-16T14:52:53.564Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:52:53.584Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:52:53.584Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:52:53.584Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:52:56.757Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:52:59.110Z [DEBUG] executePreToolHooks called for tool: Edit
+2026-01-16T14:52:59.118Z [DEBUG] Getting matching hook commands for PreToolUse with query: Edit
+2026-01-16T14:52:59.118Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:59.118Z [DEBUG] Matched 0 unique hooks for query "Edit" (0 before deduplication)
+2026-01-16T14:52:59.163Z [DEBUG] executePermissionRequestHooks called for tool: Edit
+2026-01-16T14:52:59.194Z [DEBUG] Getting matching hook commands for PermissionRequest with query: Edit
+2026-01-16T14:52:59.194Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:52:59.194Z [DEBUG] Matched 0 unique hooks for query "Edit" (0 before deduplication)
+2026-01-16T14:53:05.177Z [DEBUG] Getting matching hook commands for Notification with query: permission_prompt
+2026-01-16T14:53:05.177Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:53:05.177Z [DEBUG] Matched 0 unique hooks for query "permission_prompt" (0 before deduplication)
+2026-01-16T14:53:07.867Z [DEBUG] Applying permission update: Adding 1 allow rule(s) to destination 'session': ["Edit(/.claude/**)"]
+2026-01-16T14:53:07.871Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude/settings.json.tmp.2220.1768575187871
+2026-01-16T14:53:07.871Z [DEBUG] Preserving file permissions: 100644
+2026-01-16T14:53:07.871Z [DEBUG] Temp file written successfully, size: 972 bytes
+2026-01-16T14:53:07.871Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:53:07.871Z [DEBUG] Renaming /home/runner/workspace/.claude/settings.json.tmp.2220.1768575187871 to /home/runner/workspace/.claude/settings.json
+2026-01-16T14:53:07.871Z [DEBUG] File /home/runner/workspace/.claude/settings.json written atomically
+2026-01-16T14:53:07.906Z [DEBUG] FileHistory: Tracked file modification for /home/runner/workspace/.claude/settings.json
+2026-01-16T14:53:07.932Z [DEBUG] [lspRecommendation] Looking for LSP plugins for .json
+2026-01-16T14:53:07.948Z [DEBUG] Getting matching hook commands for PostToolUse with query: Edit
+2026-01-16T14:53:07.948Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:53:07.948Z [DEBUG] Matched 0 unique hooks for query "Edit" (0 before deduplication)
+2026-01-16T14:53:08.014Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-16T14:53:08.014Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-16T14:53:08.014Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-16T14:53:08.014Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-16T14:53:08.072Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:53:08.096Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:53:08.096Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:53:08.096Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:53:08.110Z [DEBUG] AutoUpdaterWrapper: Installation type: unknown
+2026-01-16T14:53:09.023Z [DEBUG] Detected change to /home/runner/workspace/.claude/settings.json
+2026-01-16T14:53:09.029Z [DEBUG] Settings changed from projectSettings, updating AppState
+2026-01-16T14:53:11.062Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:53:18.177Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-01-16T14:53:18.177Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:53:18.177Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-16T14:53:18.178Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:53:18.218Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768575198218
+2026-01-16T14:53:18.218Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:53:18.219Z [DEBUG] Temp file written successfully, size: 3520 bytes
+2026-01-16T14:53:18.219Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:53:18.219Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768575198218 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:53:18.219Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:53:18.229Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768575198229
+2026-01-16T14:53:18.229Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:53:18.229Z [DEBUG] Temp file written successfully, size: 3542 bytes
+2026-01-16T14:53:18.229Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:53:18.229Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768575198229 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:53:18.229Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:53:18.254Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:53:18.254Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:53:18.254Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:53:20.954Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:53:24.330Z [DEBUG] Getting matching hook commands for SubagentStop with query: undefined
+2026-01-16T14:53:24.330Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:53:24.330Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-16T14:53:24.335Z [DEBUG] [Speculation] enabled=false
+2026-01-16T14:53:34.714Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768575214714
+2026-01-16T14:53:34.714Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:53:34.714Z [DEBUG] Temp file written successfully, size: 3569 bytes
+2026-01-16T14:53:34.715Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:53:34.715Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768575214714 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:53:34.715Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:55:35.690Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-16T14:55:35.690Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-16T14:55:35.690Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-16T14:55:35.690Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-16T14:55:35.713Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-01-16T14:55:35.713Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:55:35.713Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-16T14:55:35.716Z [DEBUG] FileHistory: Making snapshot for message 0f5a07eb-0172-4c70-92fd-066052577be5
+2026-01-16T14:55:35.716Z [DEBUG] FileHistory: Added snapshot for 0f5a07eb-0172-4c70-92fd-066052577be5, tracking 2 files
+2026-01-16T14:55:35.744Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-16T14:55:35.758Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:55:35.758Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:55:35.759Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:55:35.790Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:55:35.819Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:55:35.819Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:55:35.821Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:55:36.467Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:55:39.186Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:55:50.841Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-01-16T14:55:50.841Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:55:50.841Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-16T14:55:50.842Z [DEBUG] Tool search disabled: MCPSearchTool is not available (may have been disallowed via disallowedTools).
+2026-01-16T14:55:50.898Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768575350898
+2026-01-16T14:55:50.898Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:55:50.898Z [DEBUG] Temp file written successfully, size: 3592 bytes
+2026-01-16T14:55:50.898Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:55:50.898Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768575350898 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:55:50.898Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:55:50.921Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768575350921
+2026-01-16T14:55:50.921Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:55:50.921Z [DEBUG] Temp file written successfully, size: 3629 bytes
+2026-01-16T14:55:50.921Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:55:50.921Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768575350921 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:55:50.921Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:55:50.944Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-16T14:55:50.944Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-16T14:55:50.944Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-16T14:55:53.906Z [DEBUG] Stream started - received first chunk
+2026-01-16T14:55:57.710Z [DEBUG] Getting matching hook commands for SubagentStop with query: undefined
+2026-01-16T14:55:57.710Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:55:57.710Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-16T14:56:28.910Z [DEBUG] Writing to temp file: /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768575388910
+2026-01-16T14:56:28.910Z [DEBUG] Preserving file permissions: 100600
+2026-01-16T14:56:28.910Z [DEBUG] Temp file written successfully, size: 3649 bytes
+2026-01-16T14:56:28.910Z [DEBUG] Applied original permissions to temp file
+2026-01-16T14:56:28.910Z [DEBUG] Renaming /home/runner/workspace/.claude-user/.claude.json.tmp.2220.1768575388910 to /home/runner/workspace/.claude-user/.claude.json
+2026-01-16T14:56:28.910Z [DEBUG] File /home/runner/workspace/.claude-user/.claude.json written atomically
+2026-01-16T14:56:32.571Z [DEBUG] Getting matching hook commands for SessionEnd with query: prompt_input_exit
+2026-01-16T14:56:32.572Z [DEBUG] Found 0 hook matchers in settings
+2026-01-16T14:56:32.572Z [DEBUG] Matched 0 unique hooks for query "prompt_input_exit" (0 before deduplication)

@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "sessionId": "ed22f339-9b7e-49cc-b935-bc21063d5eaa",
+      "fullPath": "/home/runner/workspace/.claude-user/projects/-home-runner-workspace/ed22f339-9b7e-49cc-b935-bc21063d5eaa.jsonl",
+      "fileMtime": 1768575350769,
+      "firstPrompt": "--dangerously-skip-permissions",
+      "messageCount": 14,
+      "created": "2026-01-16T14:46:16.100Z",
+      "modified": "2026-01-16T14:55:50.729Z",
+      "gitBranch": "main",
+      "projectPath": "/home/runner/workspace",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "7b621aa8-5ea0-4963-a448-8ecb8ffb31ce",
+      "fullPath": "/home/runner/workspace/.claude-user/projects/-home-runner-workspace/7b621aa8-5ea0-4963-a448-8ecb8ffb31ce.jsonl",
+      "fileMtime": 1768575527618,
+      "firstPrompt": "leider wurde anscheinend der Supabase MCP nict installiert. Bitte prüfe das",
+      "messageCount": 10,
+      "created": "2026-01-16T14:56:44.435Z",
+      "modified": "2026-01-16T14:58:47.554Z",
+      "gitBranch": "main",
+      "projectPath": "/home/runner/workspace",
+      "isSidechain": false
+    }
+  ]
+}
