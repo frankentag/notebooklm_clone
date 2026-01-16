@@ -76,6 +76,11 @@ const nextConfig: NextConfig = {
     ];
   },
 
+  // Turbopack configuration for monorepo
+  turbopack: {
+    root: __dirname,
+  },
+
   // Optimize package imports
   experimental: {
     optimizePackageImports: [
