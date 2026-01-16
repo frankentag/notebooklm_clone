@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H 0.0.0.0 -p 5000",
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
@@ -11,8 +11,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "type-check": "tsc --noEmit",
-    "analyze": "ANALYZE=true next build",
-    "prepare": "cd .. && husky frontend/.husky"
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

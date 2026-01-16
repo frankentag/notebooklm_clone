@@ -13,6 +13,14 @@ const nextConfig: NextConfig = {
   // Compress responses for better performance
   compress: true,
 
+  // Allow all hosts for Replit's proxy
+  allowedDevOrigins: [
+    "*.replit.dev",
+    "*.picard.replit.dev",
+    "*.repl.co",
+    "127.0.0.1",
+  ],
+
   // Optimize images
   images: {
     formats: ["image/avif", "image/webp"],
@@ -40,10 +48,6 @@ const nextConfig: NextConfig = {
           {
             key: "X-XSS-Protection",
             value: "1; mode=block",
-          },
-          {
-            key: "X-Frame-Options",
-            value: "SAMEORIGIN",
           },
           {
             key: "X-Content-Type-Options",
