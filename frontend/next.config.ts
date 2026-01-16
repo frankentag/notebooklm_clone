@@ -13,13 +13,7 @@ const nextConfig: NextConfig = {
   // Compress responses for better performance
   compress: true,
 
-  // Allow all hosts for Replit's proxy
-  allowedDevOrigins: [
-    "*.replit.dev",
-    "*.picard.replit.dev",
-    "*.repl.co",
-    "127.0.0.1",
-  ],
+  allowedDevOrigins: ["*"],
 
   // Optimize images
   images: {
