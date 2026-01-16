@@ -29,16 +29,39 @@ cd frontend && npm run dev
 - `SUPABASE_SERVICE_ROLE_KEY` - Supabase service role key (for server operations)
 - `GOOGLE_API_KEY` - Google AI API key for Gemini features
 
+## Vercel Deployment
+
+The project is designed for Vercel deployment with frontend and backend as separate projects.
+
+### Backend Deployment
+1. Create a new Vercel project
+2. Set **Root Directory** to `backend`
+3. Add environment variables:
+   - `SUPABASE_URL` - Your Supabase project URL
+   - `SUPABASE_ANON_KEY` - Supabase anonymous key
+   - `SUPABASE_SERVICE_ROLE_KEY` - Supabase service role key
+   - `GOOGLE_API_KEY` - Google AI API key
+
+### Frontend Deployment
+1. Create a new Vercel project
+2. Set **Root Directory** to `frontend`
+3. Add environment variables:
+   - `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase anonymous key
+   - `NEXT_PUBLIC_API_URL` - Your deployed backend URL (e.g., https://your-backend.vercel.app)
+
 ## Recent Changes
+- 2026-01-16: Vercel deployment preparation complete
+  - Backend vercel.json configured with Python 3.11 runtime
+  - Frontend next.config.ts optimized for production
+  - Removed hardcoded API fallback URLs (environment variables required)
 - 2026-01-16: Full Replit environment setup complete
-  - Updated Next.js config to allow Replit proxy domains
   - Configured frontend to run on port 5000 with 0.0.0.0 host
   - Set up deployment configuration (Autoscale)
-  - Fixed Tailwind CSS v4 resolution (installed in root workspace)
-  - Added turbopack.root configuration for monorepo support
+  - Fixed Tailwind CSS v4 resolution
   - **Database Setup Complete**:
-    - Created complete schema with 10 tables (profiles, notebooks, sources, chat_sessions, chat_messages, audio_overviews, video_overviews, research_tasks, notes, api_keys, usage_logs)
-    - All tables have Row Level Security (RLS) enabled with proper policies
+    - Created complete schema with 10 tables
+    - All tables have Row Level Security (RLS) enabled
     - Storage buckets configured (sources, audio, video)
     - Realtime enabled for relevant tables
     - 16 migrations applied successfully
@@ -48,4 +71,3 @@ cd frontend && npm run dev
 - All API routes are in `frontend/src/app/api/`
 - Supabase client is configured in `frontend/src/lib/supabase.ts`
 - Tailwind CSS v4 is installed in root workspace for proper resolution
-- Turbopack is configured with `turbopack.root` set to frontend directory
