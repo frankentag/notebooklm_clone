@@ -4,11 +4,5 @@
       "source": "/(.*)",
       "destination": "/api/index"
     }
-  ],
-  "functions": {
-    "api/*.py": {
-      "maxDuration": 60,
-      "memory": 1024
-    }
-  }
+  ]
 }
