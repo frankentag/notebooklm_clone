@@ -186,7 +186,7 @@ export default function SettingsPage() {
 
   const router = useRouter();
   const supabase = createClient();
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://notebooklm-api.vercel.app';
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
   useEffect(() => {
     checkAuthAndLoadKeys();

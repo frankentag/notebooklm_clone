@@ -55,7 +55,7 @@ export default function ProfilePage() {
     setSuccessDialog({ open: true, title, message });
   };
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://notebooklm-api.vercel.app';
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
   useEffect(() => {
     loadProfile();

@@ -13,8 +13,6 @@ const nextConfig: NextConfig = {
   // Compress responses for better performance
   compress: true,
 
-  allowedDevOrigins: ["*"],
-
   // Optimize images
   images: {
     formats: ["image/avif", "image/webp"],
@@ -68,11 +66,6 @@ const nextConfig: NextConfig = {
         ],
       },
     ];
-  },
-
-  // Turbopack configuration for monorepo
-  turbopack: {
-    root: __dirname,
   },
 
   // Optimize package imports

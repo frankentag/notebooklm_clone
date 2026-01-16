@@ -68,7 +68,7 @@ function Endpoint({
 }: EndpointProps) {
   const [expanded, setExpanded] = useState(false);
 
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://notebooklm-api.vercel.app';
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
   const fullPath = `${baseUrl}${path}`;
 
   let curlCommand = `curl -X ${method} "${fullPath}" \\
